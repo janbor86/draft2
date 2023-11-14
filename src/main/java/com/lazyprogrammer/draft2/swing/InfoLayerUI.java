@@ -1,8 +1,8 @@
 package com.lazyprogrammer.draft2.swing;
 
+import com.lazyprogrammer.draft2.swing.data.TileAttribute;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.lazyprogrammer.hex.swing.data.TileAttribute;
 
 import javax.swing.JComponent;
 import javax.swing.JLayer;
@@ -11,6 +11,7 @@ import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 
 @Slf4j
@@ -32,13 +33,14 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
     final var startX = component.getWidth() - layerWidth;
     final var layerHeight = 9 * component.getHeight() / 20;
     final var startY = component.getHeight() - layerHeight;
+    final var infoArea = new Rectangle(startX, startY, layerWidth, layerHeight);
     g.setColor(new Color(0, 0, 0, 64));
-    g.fillRect(startX, startY, layerWidth, layerHeight);
+    g.fillRect(infoArea.x, infoArea.y, infoArea.width, infoArea.height);
 
     Graphics2D g2d = (Graphics2D) g;
     g2d.setColor(Color.WHITE);
-    g2d.drawString(info, startX + TEXT_OFFSET, startY + TEXT_OFFSET * 1);
-    g2d.drawString(coords, startX + TEXT_OFFSET, startY + TEXT_OFFSET * 2);
+    g2d.drawString(info, infoArea.x + TEXT_OFFSET, infoArea.y + TEXT_OFFSET * 1);
+    g2d.drawString(coords, infoArea.x + TEXT_OFFSET, infoArea.y + TEXT_OFFSET * 2);
   }
 
   public void installUI(JComponent c) {

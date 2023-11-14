@@ -1,12 +1,13 @@
 package com.lazyprogrammer.draft2.swing.graphics;
 
+
+import com.lazyprogrammer.draft2.swing.blueprint.BlueprintMap;
+import com.lazyprogrammer.draft2.swing.map.HexMapConfig;
+import com.lazyprogrammer.draft2.swing.map.MapMatrix;
+import com.lazyprogrammer.draft2.swing.map.MapView;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.lazyprogrammer.hex.swing.blueprint.BlueprintMap;
-import net.lazyprogrammer.hex.swing.map.HexMapConfig;
-import net.lazyprogrammer.hex.swing.map.MapMatrix;
-import net.lazyprogrammer.hex.swing.map.MapView;
 
 import java.awt.Graphics2D;
 import java.awt.Point;

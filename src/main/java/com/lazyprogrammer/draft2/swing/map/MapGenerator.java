@@ -1,7 +1,8 @@
 package com.lazyprogrammer.draft2.swing.map;
 
-import net.lazyprogrammer.hex.swing.data.GameMap;
-import net.lazyprogrammer.hex.swing.data.TileAttribute;
+
+import com.lazyprogrammer.draft2.swing.data.GameMap;
+import com.lazyprogrammer.draft2.swing.data.TileAttribute;
 
 import java.awt.Point;
 import java.util.Random;

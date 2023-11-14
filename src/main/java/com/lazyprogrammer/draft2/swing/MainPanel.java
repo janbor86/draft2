@@ -1,12 +1,12 @@
 package com.lazyprogrammer.draft2.swing;
 
+import com.lazyprogrammer.draft2.swing.data.GameMap;
+import com.lazyprogrammer.draft2.swing.data.TileAttribute;
+import com.lazyprogrammer.draft2.swing.graphics.Overlay;
+import com.lazyprogrammer.draft2.swing.graphics.OverlayFactory;
+import com.lazyprogrammer.draft2.swing.map.HexMapConfig;
+import com.lazyprogrammer.draft2.swing.map.MapView;
 import lombok.extern.slf4j.Slf4j;
-import net.lazyprogrammer.hex.swing.data.GameMap;
-import net.lazyprogrammer.hex.swing.data.TileAttribute;
-import net.lazyprogrammer.hex.swing.graphics.Overlay;
-import net.lazyprogrammer.hex.swing.graphics.OverlayFactory;
-import net.lazyprogrammer.hex.swing.map.HexMapConfig;
-import net.lazyprogrammer.hex.swing.map.MapView;
 
 import javax.swing.JLayer;
 import javax.swing.JPanel;

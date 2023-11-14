@@ -4,13 +4,11 @@ import lombok.Getter;
 
 import java.awt.Polygon;
 
+@Getter
 public final class Hex extends Polygon {
 
-  @Getter
   private int size;
-  @Getter
   private double width;
-  @Getter
   private double height;
 
   private Hex(int sizeOfTheHex) {

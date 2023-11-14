@@ -1,8 +1,8 @@
 package com.lazyprogrammer.draft2.swing.map;
 
-import net.lazyprogrammer.hex.swing.blueprint.BlueprintMap;
-import net.lazyprogrammer.hex.swing.graphics.Drawer;
-import net.lazyprogrammer.hex.swing.graphics.Overlay;
+import com.lazyprogrammer.draft2.swing.blueprint.BlueprintMap;
+import com.lazyprogrammer.draft2.swing.graphics.Drawer;
+import com.lazyprogrammer.draft2.swing.graphics.Overlay;
 
 import java.awt.Point;
 

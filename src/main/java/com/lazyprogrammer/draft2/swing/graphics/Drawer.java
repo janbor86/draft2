@@ -1,8 +1,9 @@
 package com.lazyprogrammer.draft2.swing.graphics;
 
+
+import com.lazyprogrammer.draft2.swing.blueprint.Blueprint;
+import com.lazyprogrammer.draft2.swing.blueprint.Blueprints;
 import lombok.extern.slf4j.Slf4j;
-import net.lazyprogrammer.hex.swing.blueprint.Blueprint;
-import net.lazyprogrammer.hex.swing.blueprint.Blueprints;
 
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;

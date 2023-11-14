@@ -1,6 +1,7 @@
 package com.lazyprogrammer.draft2.swing.blueprint;
 
-import net.lazyprogrammer.hex.swing.Hex;
+
+import com.lazyprogrammer.draft2.swing.Hex;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

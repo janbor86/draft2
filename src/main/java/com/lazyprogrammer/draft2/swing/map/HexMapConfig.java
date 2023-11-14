@@ -1,5 +1,7 @@
 package com.lazyprogrammer.draft2.swing.map;
 
+import com.lazyprogrammer.draft2.swing.Hex;
+
 public record HexMapConfig(int columnNo, int rowNo, Hex hex) {
 
   public int hexHeight() {

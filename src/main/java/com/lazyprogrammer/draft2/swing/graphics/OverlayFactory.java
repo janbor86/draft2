@@ -1,11 +1,11 @@
 package com.lazyprogrammer.draft2.swing.graphics;
 
-import net.lazyprogrammer.hex.swing.Hex;
-import net.lazyprogrammer.hex.swing.blueprint.BlueprintMap;
-import net.lazyprogrammer.hex.swing.blueprint.Blueprints;
-import net.lazyprogrammer.hex.swing.map.HexMapConfig;
-import net.lazyprogrammer.hex.swing.map.MapUI;
-import net.lazyprogrammer.hex.swing.map.Maps;
+import com.lazyprogrammer.draft2.swing.Hex;
+import com.lazyprogrammer.draft2.swing.blueprint.BlueprintMap;
+import com.lazyprogrammer.draft2.swing.blueprint.Blueprints;
+import com.lazyprogrammer.draft2.swing.map.HexMapConfig;
+import com.lazyprogrammer.draft2.swing.map.MapUI;
+import com.lazyprogrammer.draft2.swing.map.Maps;
 
 public class OverlayFactory {
 

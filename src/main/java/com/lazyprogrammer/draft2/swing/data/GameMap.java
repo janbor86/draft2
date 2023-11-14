@@ -1,7 +1,7 @@
 package com.lazyprogrammer.draft2.swing.data;
 
+import com.lazyprogrammer.draft2.swing.map.HexMapConfig;
 import lombok.Getter;
-import net.lazyprogrammer.hex.swing.map.HexMapConfig;
 
 import java.awt.Point;
 import java.util.HashMap;

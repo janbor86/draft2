@@ -1,13 +1,14 @@
 package com.lazyprogrammer.draft2.swing;
 
+
+import com.lazyprogrammer.draft2.swing.data.GameMap;
+import com.lazyprogrammer.draft2.swing.graphics.Overlay;
+import com.lazyprogrammer.draft2.swing.map.MapUI;
+import com.lazyprogrammer.draft2.swing.map.MapView;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import net.lazyprogrammer.hex.swing.data.GameMap;
-import net.lazyprogrammer.hex.swing.graphics.Overlay;
-import net.lazyprogrammer.hex.swing.map.MapUI;
-import net.lazyprogrammer.hex.swing.map.MapView;
 
 import javax.swing.JComponent;
 import java.awt.Graphics;
@@ -34,7 +35,7 @@ public class HexMapComponent extends JComponent {
     g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
     terrain.draw(g2d, mapView, gameMap.getMapConfig());
-    mapUI.draw(g2d, mapView, gameMap.getMapConfig());
+//    mapUI.draw(g2d, mapView, gameMap.getMapConfig());
   }
 
 
