@@ -3,7 +3,6 @@ package com.lazyprogrammer.draft2.swing;
 
 import com.lazyprogrammer.draft2.swing.data.GameMap;
 import com.lazyprogrammer.draft2.swing.graphics.Overlay;
-import com.lazyprogrammer.draft2.swing.map.MapUI;
 import com.lazyprogrammer.draft2.swing.map.MapView;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +17,13 @@ import java.awt.RenderingHints;
 
 @Slf4j
 @ToString
+@Getter
 @RequiredArgsConstructor
 public class HexMapComponent extends JComponent {
 
-  @Getter
   private final GameMap gameMap;
   private final MapView mapView;
   private final Overlay terrain;
-  private final MapUI mapUI;
 
   @Override
   protected void paintComponent(Graphics graphics) {
@@ -35,7 +33,6 @@ public class HexMapComponent extends JComponent {
     g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
     terrain.draw(g2d, mapView, gameMap.getMapConfig());
-//    mapUI.draw(g2d, mapView, gameMap.getMapConfig());
   }
 
 
@@ -54,11 +51,6 @@ public class HexMapComponent extends JComponent {
 
   public void refreshView() {
     mapView.resize(getWidth(), getHeight());
-    repaint();
-  }
-
-  public void focusAt(Point at) {
-    mapUI.highlight(findAt(at));
     repaint();
   }
 
@@ -87,4 +79,15 @@ public class HexMapComponent extends JComponent {
     return new Point(x, y);
   }
 
+  Point calculateCenter(int i, int j) {
+    var x = i * gameMap.getMapConfig()
+                       .horizontalSpacing();
+    var verticalOffset = (int) (((i % 2) * gameMap.getMapConfig()
+                                                  .hexHeight()) / 2D);
+    var y = j * gameMap.getMapConfig()
+                       .verticalSpacing() - verticalOffset;
+    return new Point(x + mapView.getLocation().x, y + mapView.getLocation().y);
+  }
 }
+
+

@@ -29,8 +29,4 @@ public class MapMouseAdapter extends MouseAdapter {
 
   }
 
-  @Override
-  public void mouseMoved(MouseEvent e) {
-    gameMap.focusAt(e.getPoint());
-  }
 }

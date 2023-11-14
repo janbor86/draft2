@@ -11,36 +11,56 @@ import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 @Slf4j
 @RequiredArgsConstructor
 public class InfoLayerUI extends LayerUI<HexMapComponent> {
 
   private static final int TEXT_OFFSET = 24;
+  private static final Color INFO_AREA_COLOR = new Color(0, 0, 0, 64);
 
   String info = "";
-  String coords = "";
+  Point coordinates = new Point();
 
   private final HexMapComponent mapComponent;
-
+  private final BufferedImage highlightShape;
 
   @Override
   public void paint(Graphics g, JComponent component) {
     super.paint(g, component);
+    final var infoArea = createInfoArea(component);
+    Graphics2D g2d = (Graphics2D) g;
+    paintInfoArea(g2d, infoArea);
+    paintInfoText(g2d, infoArea, 1, "[x=" + coordinates.x + ",y=" + coordinates.y + "]");
+    paintInfoText(g2d, infoArea, 2, info);
+    paintHighlightShape(g2d);
+  }
+
+  private void paintHighlightShape(Graphics2D g2d) {
+    final var center = mapComponent.calculateCenter(coordinates.x, coordinates.y);
+    g2d.drawImage(highlightShape, center.x, center.y, null);
+  }
+
+  private void paintInfoText(Graphics2D g2d, Rectangle infoArea, int lineNo, String info) {
+    g2d.setColor(Color.WHITE);
+    g2d.drawString(info, infoArea.x + TEXT_OFFSET, infoArea.y + TEXT_OFFSET * lineNo);
+  }
+
+  private static void paintInfoArea(Graphics2D g2d, Rectangle infoArea) {
+    g2d.setColor(INFO_AREA_COLOR);
+    g2d.fill(infoArea);
+  }
+
+  private static Rectangle createInfoArea(JComponent component) {
     final var layerWidth = component.getWidth() / 7;
     final var startX = component.getWidth() - layerWidth;
     final var layerHeight = 9 * component.getHeight() / 20;
     final var startY = component.getHeight() - layerHeight;
-    final var infoArea = new Rectangle(startX, startY, layerWidth, layerHeight);
-    g.setColor(new Color(0, 0, 0, 64));
-    g.fillRect(infoArea.x, infoArea.y, infoArea.width, infoArea.height);
-
-    Graphics2D g2d = (Graphics2D) g;
-    g2d.setColor(Color.WHITE);
-    g2d.drawString(info, infoArea.x + TEXT_OFFSET, infoArea.y + TEXT_OFFSET * 1);
-    g2d.drawString(coords, infoArea.x + TEXT_OFFSET, infoArea.y + TEXT_OFFSET * 2);
+    return new Rectangle(startX, startY, layerWidth, layerHeight);
   }
 
   public void installUI(JComponent c) {
@@ -53,10 +73,9 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
   @Override
   protected void processMouseMotionEvent(MouseEvent e, JLayer<? extends HexMapComponent> l) {
     log.trace("mouseMotion: {}", e);
-    final var at = mapComponent.findAt(e.getPoint());
-    coords = "[x=" + at.x + ",y=" + at.y + "]";
+    coordinates = mapComponent.findAt(e.getPoint());
     info = switch (mapComponent.getGameMap()
-                               .read(at, TileAttribute.TERRAIN)) {
+                               .read(coordinates, TileAttribute.TERRAIN)) {
       case 0 -> "OCEAN";
       case 1 -> "GRASSLAND";
       case 2 -> "FOREST";

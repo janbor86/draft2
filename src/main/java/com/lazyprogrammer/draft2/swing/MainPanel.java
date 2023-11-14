@@ -1,7 +1,9 @@
 package com.lazyprogrammer.draft2.swing;
 
+import com.lazyprogrammer.draft2.swing.blueprint.Blueprints;
 import com.lazyprogrammer.draft2.swing.data.GameMap;
 import com.lazyprogrammer.draft2.swing.data.TileAttribute;
+import com.lazyprogrammer.draft2.swing.graphics.Drawer;
 import com.lazyprogrammer.draft2.swing.graphics.Overlay;
 import com.lazyprogrammer.draft2.swing.graphics.OverlayFactory;
 import com.lazyprogrammer.draft2.swing.map.HexMapConfig;
@@ -28,7 +30,10 @@ public class MainPanel extends JPanel {
     mapComponent.addMouseListener(mapMouseAdapter);
     mapComponent.addMouseMotionListener(mapMouseAdapter);
     addComponentListener(createComponentAdapter(mapComponent));
-    add(new JLayer<>(mapComponent, new InfoLayerUI(mapComponent)), BorderLayout.CENTER);
+    final var highlightImage = new Drawer().drawHex(Blueprints.highlight(mapComponent.getGameMap()
+                                                                                     .getMapConfig()
+                                                                                     .hex()));
+    add(new JLayer<>(mapComponent, new InfoLayerUI(mapComponent, highlightImage)), BorderLayout.CENTER);
   }
 
   private HexMapComponent createHexMap() {
@@ -36,11 +41,10 @@ public class MainPanel extends JPanel {
     final var gameMap = new GameMap(mapConfig);
     final var terrain = OverlayFactory.terrainOverlay(mapConfig);
     copyTo(terrain, gameMap);
-    final var mapUi = OverlayFactory.mapUi(mapConfig);
-    return new HexMapComponent(gameMap, new MapView(getVisibleRect()), terrain, mapUi);
+    return new HexMapComponent(gameMap, new MapView(getVisibleRect()), terrain);
   }
 
-  private static GameMap copyTo(Overlay overlay, GameMap gameMap) {
+  private static void copyTo(Overlay overlay, GameMap gameMap) {
     for (int i = 0; i < overlay.getMap()
                                .getColumnNo(); i++) {
       for (int j = 0; j < overlay.getMap()
@@ -49,7 +53,6 @@ public class MainPanel extends JPanel {
                                                                      .get(i, j));
       }
     }
-    return gameMap;
   }
 
   private static ComponentAdapter createComponentAdapter(HexMapComponent mapComponent) {
