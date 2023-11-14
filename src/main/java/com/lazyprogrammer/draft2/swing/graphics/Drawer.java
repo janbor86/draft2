@@ -33,15 +33,15 @@ public class Drawer {
   }
 
   private static BufferedImage drawShape(Blueprint blueprint) {
-    final var shape = blueprint.getShape();
+    final var shape = blueprint.shape();
     final var image = new BufferedImage(shape.getBounds().width, shape.getBounds().height, BufferedImage.TYPE_INT_ARGB);
     final var imageGraphic = (Graphics2D) image.getGraphics();
     imageGraphic.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     imageGraphic.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
-    imageGraphic.setColor(blueprint.getFillColor());
+    imageGraphic.setColor(blueprint.fillColor());
     imageGraphic.fill(shape);
-    imageGraphic.setColor(blueprint.getStrokeColor());
-    imageGraphic.setStroke(blueprint.getStroke());
+    imageGraphic.setColor(blueprint.strokeColor());
+    imageGraphic.setStroke(blueprint.stroke());
     imageGraphic.draw(shape);
     return image;
   }
