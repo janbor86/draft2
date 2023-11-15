@@ -5,6 +5,7 @@ import com.lazyprogrammer.draft2.swing.Hex;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Shape;
 import java.awt.Stroke;
 
 public class Blueprints {
@@ -61,9 +62,9 @@ public class Blueprints {
                     .build();
   }
 
-  public static Blueprint highlight(Hex hex) {
+  public static Blueprint highlight(Shape shape) {
     return Blueprint.builder()
-                    .shape(hex)
+                    .shape(shape)
                     .stroke(getStroke(HIGHLIGHT_STROKE))
                     .strokeColor(HIGHLIGHT_COLOR)
                     .fillColor(TRANSLUCENT)
