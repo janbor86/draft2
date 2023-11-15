@@ -2,7 +2,8 @@ package com.lazyprogrammer.draft2.swing;
 
 
 import com.lazyprogrammer.draft2.swing.data.GameMap;
-import com.lazyprogrammer.draft2.swing.graphics.Overlay;
+import com.lazyprogrammer.draft2.swing.graphics.Painter;
+import com.lazyprogrammer.draft2.swing.map.HexMapConfig;
 import com.lazyprogrammer.draft2.swing.map.MapView;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
+import java.util.List;
 
 @Slf4j
 @ToString
@@ -21,9 +23,10 @@ import java.awt.RenderingHints;
 @RequiredArgsConstructor
 public class HexMapComponent extends JComponent {
 
+  private final HexMapConfig mapConfig;
   private final GameMap gameMap;
   private final MapView mapView;
-  private final Overlay terrain;
+  private final List<Painter> painters;
 
   @Override
   protected void paintComponent(Graphics graphics) {
@@ -32,13 +35,12 @@ public class HexMapComponent extends JComponent {
     final var g2d = (Graphics2D) graphics;
     g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
-    terrain.draw(g2d, mapView, gameMap.getMapConfig());
+    painters.forEach(painter -> painter.paint(g2d, mapView, gameMap, mapConfig));
   }
 
 
   public void pan(int dx, int dy) {
-    mapView.translateView(dx, dy, this.getGameMap()
-                                      .getMapConfig());
+    mapView.translateView(dx, dy, mapConfig);
     repaint();
   }
 
@@ -54,32 +56,20 @@ public class HexMapComponent extends JComponent {
     var dx = at.x - location.x;
     var dy = at.y - location.y;
     log.trace("dx:{},dy:{}", dx, dy);
-    dx -= gameMap.getMapConfig()
-                 .hexWidth() / 8;
-    int x = dx / gameMap.getMapConfig()
-                        .horizontalSpacing();
+    dx -= mapConfig.hexWidth() / 8;
+    int x = dx / mapConfig.horizontalSpacing();
     if (x % 2 == 1) {
-      dy += gameMap.getMapConfig()
-                   .verticalSpacing() / 2;
+      dy += mapConfig.verticalSpacing() / 2;
     }
-    int y = dy / gameMap.getMapConfig()
-                        .verticalSpacing();
-    x = Math.min(gameMap.getMapConfig()
-                        .columnNo() - 1, Math.max(0, x));
-    y = Math.min(gameMap.getMapConfig()
-                        .rowNo() - 1, Math.max(0, y));
+    int y = dy / mapConfig.verticalSpacing();
+    x = Math.min(mapConfig.columnNo() - 1, Math.max(0, x));
+    y = Math.min(mapConfig.rowNo() - 1, Math.max(0, y));
     log.trace("is it {}:{}", x, y);
     return new Point(x, y);
   }
 
-  Point calculateCenter(int i, int j) {
-    var x = i * gameMap.getMapConfig()
-                       .horizontalSpacing();
-    var verticalOffset = (int) (((i % 2) * gameMap.getMapConfig()
-                                                  .hexHeight()) / 2D);
-    var y = j * gameMap.getMapConfig()
-                       .verticalSpacing() - verticalOffset;
-    return new Point(x + mapView.getLocation().x, y + mapView.getLocation().y);
+  Point calculateCenter(Point coordinate) {
+    return mapConfig.translateCoordinateToScreenLocation(coordinate, mapView.getLocation());
   }
 }
 

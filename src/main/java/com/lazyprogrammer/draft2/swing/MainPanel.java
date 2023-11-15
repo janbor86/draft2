@@ -4,10 +4,11 @@ import com.lazyprogrammer.draft2.swing.blueprint.Blueprints;
 import com.lazyprogrammer.draft2.swing.data.GameMap;
 import com.lazyprogrammer.draft2.swing.data.TileAttribute;
 import com.lazyprogrammer.draft2.swing.graphics.Drawer;
-import com.lazyprogrammer.draft2.swing.graphics.Overlay;
-import com.lazyprogrammer.draft2.swing.graphics.OverlayFactory;
+import com.lazyprogrammer.draft2.swing.graphics.GridPainter;
 import com.lazyprogrammer.draft2.swing.map.HexMapConfig;
+import com.lazyprogrammer.draft2.swing.map.MapMatrix;
 import com.lazyprogrammer.draft2.swing.map.MapView;
+import com.lazyprogrammer.draft2.swing.map.Maps;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.JLayer;
@@ -17,6 +18,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.util.List;
 
 @Slf4j
 public class MainPanel extends JPanel {
@@ -25,32 +27,27 @@ public class MainPanel extends JPanel {
     setDoubleBuffered(true);
     setBackground(Color.BLACK);
     setLayout(new BorderLayout());
-    final HexMapComponent mapComponent = createHexMap();
+    final var baseHex = Hex.sizeOf(56);
+    final HexMapComponent mapComponent = createHexMap(baseHex);
     final var mapMouseAdapter = new MapMouseAdapter(mapComponent);
     mapComponent.addMouseListener(mapMouseAdapter);
     mapComponent.addMouseMotionListener(mapMouseAdapter);
     addComponentListener(createComponentAdapter(mapComponent));
-    final var highlightImage = new Drawer().drawHex(Blueprints.highlight(mapComponent.getGameMap()
-                                                                                     .getMapConfig()
-                                                                                     .hex()));
+    final var highlightImage = Drawer.GLOBAL.drawHex(Blueprints.highlight(baseHex));
     add(new JLayer<>(mapComponent, new InfoLayerUI(mapComponent, highlightImage)), BorderLayout.CENTER);
   }
 
-  private HexMapComponent createHexMap() {
-    final var mapConfig = new HexMapConfig(60, 30, Hex.sizeOf(56));
+  private HexMapComponent createHexMap(final Hex hex) {
+    final var mapConfig = new HexMapConfig(60, 30, hex);
     final var gameMap = new GameMap(mapConfig);
-    final var terrain = OverlayFactory.terrainOverlay(mapConfig);
-    copyTo(terrain, gameMap);
-    return new HexMapComponent(gameMap, new MapView(), terrain);
+    copyTo(Maps.emptyOne(mapConfig), gameMap);
+    return new HexMapComponent(mapConfig, gameMap, new MapView(), List.of(new GridPainter(Drawer.GLOBAL)));
   }
 
-  private static void copyTo(Overlay overlay, GameMap gameMap) {
-    for (int i = 0; i < overlay.getMap()
-                               .getColumnNo(); i++) {
-      for (int j = 0; j < overlay.getMap()
-                                 .getRowNo(); j++) {
-        gameMap.write(new Point(i, j), TileAttribute.TERRAIN, overlay.getMap()
-                                                                     .get(i, j));
+  private static void copyTo(MapMatrix mapMatrix, GameMap gameMap) {
+    for (int i = 0; i < mapMatrix.getColumnNo(); i++) {
+      for (int j = 0; j < mapMatrix.getRowNo(); j++) {
+        gameMap.write(new Point(i, j), TileAttribute.TERRAIN, mapMatrix.get(i, j));
       }
     }
   }

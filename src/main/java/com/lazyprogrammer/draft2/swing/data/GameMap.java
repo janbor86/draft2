@@ -1,20 +1,17 @@
 package com.lazyprogrammer.draft2.swing.data;
 
 import com.lazyprogrammer.draft2.swing.map.HexMapConfig;
-import lombok.Getter;
 
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class GameMap {
 
-  @Getter
-  private final HexMapConfig mapConfig;
   private final Map<Point, Tile> tiles;
 
   public GameMap(HexMapConfig mapConfig) {
-    this.mapConfig = mapConfig;
     tiles = new HashMap<>();
     for (int i = 0; i < mapConfig.columnNo(); i++) {
       for (int j = 0; j < mapConfig.rowNo(); j++) {
@@ -35,4 +32,7 @@ public class GameMap {
          .set(attribute, value);
   }
 
+  public Set<Point> getCoordinates() {
+    return tiles.keySet();
+  }
 }

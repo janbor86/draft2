@@ -1,10 +1,12 @@
 package com.lazyprogrammer.draft2.swing;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.awt.Polygon;
 
 @Getter
+@EqualsAndHashCode(callSuper = false)
 public final class Hex extends Polygon {
 
   private int size;
@@ -24,7 +26,7 @@ public final class Hex extends Polygon {
     resetPoints();
   }
 
-  static Hex sizeOf(int sizeOfTheHex) {
+  public static Hex sizeOf(int sizeOfTheHex) {
     return new Hex(sizeOfTheHex);
   }
 

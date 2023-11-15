@@ -24,7 +24,7 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
   private static final Color INFO_AREA_COLOR = new Color(0, 0, 0, 64);
 
   String info = "";
-  Point coordinates = new Point();
+  Point coordinate = new Point();
 
   private final HexMapComponent mapComponent;
   private final BufferedImage highlightShape;
@@ -35,13 +35,13 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
     final var infoArea = createInfoArea(component);
     Graphics2D g2d = (Graphics2D) g;
     paintInfoArea(g2d, infoArea);
-    paintInfoText(g2d, infoArea, 1, "[x=" + coordinates.x + ",y=" + coordinates.y + "]");
+    paintInfoText(g2d, infoArea, 1, "[x=" + coordinate.x + ",y=" + coordinate.y + "]");
     paintInfoText(g2d, infoArea, 2, info);
     paintHighlightShape(g2d);
   }
 
   private void paintHighlightShape(Graphics2D g2d) {
-    final var center = mapComponent.calculateCenter(coordinates.x, coordinates.y);
+    final var center = mapComponent.calculateCenter(coordinate);
     g2d.drawImage(highlightShape, center.x, center.y, null);
   }
 
@@ -73,9 +73,9 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
   @Override
   protected void processMouseMotionEvent(MouseEvent e, JLayer<? extends HexMapComponent> l) {
     log.trace("mouseMotion: {}", e);
-    coordinates = mapComponent.findAt(e.getPoint());
+    coordinate = mapComponent.findAt(e.getPoint());
     info = switch (mapComponent.getGameMap()
-                               .read(coordinates, TileAttribute.TERRAIN)) {
+                               .read(coordinate, TileAttribute.TERRAIN)) {
       case 0 -> "OCEAN";
       case 1 -> "GRASSLAND";
       case 2 -> "FOREST";
