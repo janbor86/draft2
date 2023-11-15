@@ -37,15 +37,8 @@ public class HexMapComponent extends JComponent {
 
 
   public void pan(int dx, int dy) {
-    mapView.translate(dx, dy);
-    var minimumX = getWidth() - gameMap.getMapConfig()
-                                       .width();
-    var minimumY = getHeight() - gameMap.getMapConfig()
-                                        .height();
-    var x = Math.min(0, Math.max(minimumX, mapView.getLocation().x));
-    var y = Math.min(gameMap.getMapConfig()
-                            .verticalSpacing() / 2, Math.max(minimumY, mapView.getLocation().y));
-    mapView.move(x, y);
+    mapView.translateView(dx, dy, this.getGameMap()
+                                      .getMapConfig());
     repaint();
   }
 

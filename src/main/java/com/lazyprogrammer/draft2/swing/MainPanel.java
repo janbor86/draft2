@@ -41,7 +41,7 @@ public class MainPanel extends JPanel {
     final var gameMap = new GameMap(mapConfig);
     final var terrain = OverlayFactory.terrainOverlay(mapConfig);
     copyTo(terrain, gameMap);
-    return new HexMapComponent(gameMap, new MapView(getVisibleRect()), terrain);
+    return new HexMapComponent(gameMap, new MapView(), terrain);
   }
 
   private static void copyTo(Overlay overlay, GameMap gameMap) {
