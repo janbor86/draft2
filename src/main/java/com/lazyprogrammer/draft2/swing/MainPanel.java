@@ -59,20 +59,6 @@ public class MainPanel extends JPanel {
         mapComponent.refreshView();
       }
 
-      @Override
-      public void componentMoved(ComponentEvent e) {
-        super.componentMoved(e);
-      }
-
-      @Override
-      public void componentShown(ComponentEvent e) {
-        super.componentShown(e);
-      }
-
-      @Override
-      public void componentHidden(ComponentEvent e) {
-        super.componentHidden(e);
-      }
     };
   }
 }

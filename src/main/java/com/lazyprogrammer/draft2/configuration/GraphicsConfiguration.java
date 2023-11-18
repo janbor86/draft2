@@ -13,8 +13,8 @@ import javax.validation.constraints.Min;
 @ConfigurationProperties(prefix = "graphics")
 public class GraphicsConfiguration {
 
-  WindowMode mode;
-  @Min(value = 0, message = "Value must be greater than or equal to 0") int monitorId;
+  private WindowMode mode = WindowMode.WINDOWED;
+  private @Min(value = 0, message = "Value must be greater than or equal to 0") int monitorId;
 
 }
 

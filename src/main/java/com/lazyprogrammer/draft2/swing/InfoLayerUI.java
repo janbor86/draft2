@@ -63,6 +63,7 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
     return new Rectangle(startX, startY, layerWidth, layerHeight);
   }
 
+  @Override
   public void installUI(JComponent c) {
     super.installUI(c);
     var l = (JLayer<?>) c;

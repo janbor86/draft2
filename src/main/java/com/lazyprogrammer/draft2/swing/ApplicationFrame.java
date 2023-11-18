@@ -2,6 +2,8 @@ package com.lazyprogrammer.draft2.swing;
 
 
 import com.lazyprogrammer.draft2.configuration.GraphicsConfiguration;
+import com.lazyprogrammer.draft2.configuration.WindowMode;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
@@ -16,7 +19,9 @@ import java.awt.GraphicsEnvironment;
 @RequiredArgsConstructor
 public class ApplicationFrame extends JFrame {
 
+  @NonNull
   private final JPanel mainPanel;
+  @NonNull
   private final GraphicsConfiguration graphicsConfiguration;
 
   @PostConstruct
@@ -27,7 +32,7 @@ public class ApplicationFrame extends JFrame {
 
   private void initializeComponents() {
     setTitle("Project Grand Rouge Strategy");
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setMonitor();
     setDecoration();
     setContentPane(mainPanel);
@@ -36,9 +41,8 @@ public class ApplicationFrame extends JFrame {
   }
 
   private void setDecoration() {
-    switch (graphicsConfiguration.getMode()) {
-      case WINDOWED -> setUndecorated(false);
-      case BORDERLESS -> setUndecorated(true);
+    if (graphicsConfiguration.getMode() == WindowMode.BORDERLESS) {
+      setUndecorated(true);
     }
   }
 
