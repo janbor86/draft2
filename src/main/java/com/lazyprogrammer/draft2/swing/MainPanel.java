@@ -5,7 +5,7 @@ import com.lazyprogrammer.draft2.swing.data.GameMap;
 import com.lazyprogrammer.draft2.swing.data.TileAttribute;
 import com.lazyprogrammer.draft2.swing.graphics.Drawer;
 import com.lazyprogrammer.draft2.swing.graphics.GridPainter;
-import com.lazyprogrammer.draft2.swing.map.HexMapConfig;
+import com.lazyprogrammer.draft2.swing.map.MapConfig;
 import com.lazyprogrammer.draft2.swing.map.MapMatrix;
 import com.lazyprogrammer.draft2.swing.map.MapView;
 import com.lazyprogrammer.draft2.swing.map.Maps;
@@ -38,10 +38,10 @@ public class MainPanel extends JPanel {
   }
 
   private HexMapComponent createHexMap(final Hex hex) {
-    final var mapConfig = new HexMapConfig(60, 30, hex);
+    final var mapConfig = new MapConfig(60, 30, hex);
     final var gameMap = new GameMap(mapConfig);
     copyTo(Maps.emptyOne(mapConfig), gameMap);
-    return new HexMapComponent(mapConfig, gameMap, new MapView(), List.of(new GridPainter(Drawer.GLOBAL)));
+    return new HexMapComponent(gameMap, new MapView(mapConfig), List.of(new GridPainter(Drawer.GLOBAL)));
   }
 
   private static void copyTo(MapMatrix mapMatrix, GameMap gameMap) {

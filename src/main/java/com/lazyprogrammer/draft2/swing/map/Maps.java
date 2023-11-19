@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class Maps {
 
-  public static MapMatrix createLameOne(HexMapConfig hexMapConfig) {
-    final var integers = initializeMap(hexMapConfig.columnNo(), hexMapConfig.rowNo());
+  public static MapMatrix createLameOne(MapConfig mapConfig) {
+    final var integers = initializeMap(mapConfig.columnNo(), mapConfig.rowNo());
     return new MapMatrix(integers);
   }
 
@@ -97,8 +97,8 @@ public class Maps {
     return random.nextInt(max - min) + min;
   }
 
-  public static MapMatrix emptyOne(HexMapConfig hexMapConfig) {
-    Integer[][] map = new Integer[hexMapConfig.columnNo()][hexMapConfig.rowNo()];
+  public static MapMatrix emptyOne(MapConfig mapConfig) {
+    Integer[][] map = new Integer[mapConfig.columnNo()][mapConfig.rowNo()];
     for (Integer[] integers : map)
       Arrays.fill(integers, 0);
     return new MapMatrix(map);

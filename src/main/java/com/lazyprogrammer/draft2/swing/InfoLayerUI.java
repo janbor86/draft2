@@ -41,7 +41,8 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
   }
 
   private void paintHighlightShape(Graphics2D g2d) {
-    final var center = mapComponent.calculateCenter(coordinate);
+    final var center = mapComponent.getMapView()
+                                   .calculateCenter(coordinate);
     g2d.drawImage(highlightShape, center.x, center.y, null);
   }
 
@@ -74,7 +75,8 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
   @Override
   protected void processMouseMotionEvent(MouseEvent e, JLayer<? extends HexMapComponent> l) {
     log.trace("mouseMotion: {}", e);
-    coordinate = mapComponent.findAt(e.getPoint());
+    coordinate = mapComponent.getMapView()
+                             .findAt(e.getPoint());
     info = switch (mapComponent.getGameMap()
                                .read(coordinate, TileAttribute.TERRAIN)) {
       case 0 -> "OCEAN";

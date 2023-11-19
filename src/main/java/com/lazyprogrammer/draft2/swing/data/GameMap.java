@@ -1,6 +1,6 @@
 package com.lazyprogrammer.draft2.swing.data;
 
-import com.lazyprogrammer.draft2.swing.map.HexMapConfig;
+import com.lazyprogrammer.draft2.swing.map.MapConfig;
 
 import java.awt.Point;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ public class GameMap {
 
   private final Map<Point, Tile> tiles;
 
-  public GameMap(HexMapConfig mapConfig) {
+  public GameMap(MapConfig mapConfig) {
     tiles = new HashMap<>();
     for (int i = 0; i < mapConfig.columnNo(); i++) {
       for (int j = 0; j < mapConfig.rowNo(); j++) {

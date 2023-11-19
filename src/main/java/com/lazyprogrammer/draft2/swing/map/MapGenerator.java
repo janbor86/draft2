@@ -10,7 +10,7 @@ import java.util.random.RandomGenerator;
 
 public class MapGenerator {
 
-  public static GameMap createGameMap(HexMapConfig mapConfig) {
+  public static GameMap createGameMap(MapConfig mapConfig) {
     final var gameMap = new GameMap(mapConfig);
     final var random = Random.from(RandomGenerator.getDefault());
     for (int i = 0; i < mapConfig.columnNo(); i++) {
