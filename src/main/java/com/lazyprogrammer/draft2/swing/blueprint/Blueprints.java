@@ -80,4 +80,11 @@ public class Blueprints {
                     .stroke(getStroke(GRID_STROKE_WIDTH))
                     .build();
   }
+
+  public static Blueprint elevation(int size, int brightness) {
+    return Blueprint.builder()
+                    .shape(Hex.sizeOf(size))
+                    .fillColor(new Color(brightness, brightness, brightness))
+                    .build();
+  }
 }

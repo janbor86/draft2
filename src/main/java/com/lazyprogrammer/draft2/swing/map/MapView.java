@@ -20,6 +20,10 @@ public class MapView {
     this.viewBoundary = new Rectangle();
   }
 
+  public int getZoomLevel() {
+    return mapConfig.hexSize();
+  }
+
   public void translate(int dx, int dy) {
     viewBoundary.translate(dx, dy);
   }

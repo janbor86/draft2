@@ -6,7 +6,6 @@ import com.lazyprogrammer.draft2.swing.data.GameMap;
 import com.lazyprogrammer.draft2.swing.map.MapView;
 
 import java.awt.Graphics2D;
-import java.awt.Point;
 
 public class GridPainter implements Painter {
   private final Drawer drawer;
@@ -18,15 +17,10 @@ public class GridPainter implements Painter {
 
   @Override
   public void paint(Graphics2D graphics2D, MapView view, GameMap gameMap) {
-    final var mapConfig = view.getMapConfig();
+    checkBlueprint(view.getZoomLevel());
     gameMap.getCoordinates()
            .forEach(coordinate -> {
-             checkBlueprint(mapConfig.hexSize());
-             Point offset = view.getLocation();
-             var x = coordinate.x * mapConfig.horizontalSpacing();
-             var verticalOffset = (int) (((coordinate.x % 2) * mapConfig.hexHeight()) / 2D);
-             var y = coordinate.y * mapConfig.verticalSpacing() - verticalOffset;
-             final var onScreenLocation = new Point(x + offset.x, y + offset.y);
+             final var onScreenLocation = view.calculateCenter(coordinate);
              final var gridImage = drawer.drawHex(grid);
              graphics2D.drawImage(gridImage, onScreenLocation.x, onScreenLocation.y, null);
            });

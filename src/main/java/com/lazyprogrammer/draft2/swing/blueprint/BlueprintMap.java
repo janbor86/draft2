@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Singular;
 
 import java.util.Map;
+import java.util.function.Function;
 
 @Builder
 public class BlueprintMap<K> {
@@ -13,5 +14,9 @@ public class BlueprintMap<K> {
 
   public Blueprint get(K key) {
     return map.getOrDefault(key, Blueprints.EMPTY);
+  }
+
+  public void update(K key, Function<? super K, Blueprint> blueprint) {
+    map.computeIfAbsent(key, blueprint);
   }
 }
