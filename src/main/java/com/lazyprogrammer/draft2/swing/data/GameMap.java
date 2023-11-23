@@ -6,9 +6,12 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class GameMap {
 
+  private static final Set<Point> neighbors = Set.of(new Point(-1, 0), new Point(-1, 1), new Point(0, -1),
+      new Point(0, +1), new Point(1, 0), new Point(1, 1));
   private final Map<Point, Tile> tiles;
 
   public GameMap(MapConfig mapConfig) {
@@ -34,5 +37,17 @@ public class GameMap {
 
   public Set<Point> getCoordinates() {
     return tiles.keySet();
+  }
+
+  public Set<Point> getNeighbors(Point coordinate) {
+    return neighbors.stream()
+                    .map(n -> {
+                      final var point = new Point(coordinate);
+                      var transformationOffset = -1 * n.x * n.x * coordinate.x % 2;
+                      point.translate(n.x, n.y + +transformationOffset);
+                      return point;
+                    })
+                    .filter(tiles::containsKey)
+                    .collect(Collectors.toSet());
   }
 }

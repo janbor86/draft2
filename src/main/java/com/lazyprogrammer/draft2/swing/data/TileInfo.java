@@ -12,7 +12,7 @@ public class TileInfo {
   }
 
   public Integer get(TileAttribute attribute) {
-    return infoMap.get(attribute);
+    return infoMap.getOrDefault(attribute, Integer.MIN_VALUE);
   }
 
   public void set(TileAttribute attribute, Integer value) {

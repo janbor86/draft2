@@ -23,17 +23,16 @@ import java.util.List;
 @Slf4j
 public class MainPanel extends JPanel {
 
-  public MainPanel() {
+  public MainPanel(HexMapComponent mapComponent) {
     setDoubleBuffered(true);
     setBackground(Color.BLACK);
     setLayout(new BorderLayout());
-    final var baseHex = Hex.sizeOf(56);
-    final HexMapComponent mapComponent = createHexMap(baseHex);
     final var mapMouseAdapter = new MapMouseAdapter(mapComponent);
     mapComponent.addMouseListener(mapMouseAdapter);
     mapComponent.addMouseMotionListener(mapMouseAdapter);
     addComponentListener(createComponentAdapter(mapComponent));
-    final var highlightImage = Drawer.GLOBAL.drawHex(Blueprints.highlight(baseHex));
+    final var highlightImage = Drawer.GLOBAL.drawHex(Blueprints.highlight(Hex.sizeOf(mapComponent.getMapView()
+                                                                                                 .getZoomLevel())));
     add(new JLayer<>(mapComponent, new InfoLayerUI(mapComponent, highlightImage)), BorderLayout.CENTER);
   }
 

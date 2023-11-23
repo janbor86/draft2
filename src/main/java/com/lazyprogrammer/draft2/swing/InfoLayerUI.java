@@ -1,5 +1,6 @@
 package com.lazyprogrammer.draft2.swing;
 
+import com.lazyprogrammer.draft2.swing.data.Terrain;
 import com.lazyprogrammer.draft2.swing.data.TileAttribute;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,7 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
   private static final Color INFO_AREA_COLOR = new Color(0, 0, 0, 64);
 
   String info = "";
+  String elevation = "";
   Point coordinate = new Point();
 
   private final HexMapComponent mapComponent;
@@ -37,13 +39,14 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
     paintInfoArea(g2d, infoArea);
     paintInfoText(g2d, infoArea, 1, "[x=" + coordinate.x + ",y=" + coordinate.y + "]");
     paintInfoText(g2d, infoArea, 2, info);
+    paintInfoText(g2d, infoArea, 3, elevation);
     paintHighlightShape(g2d);
   }
 
   private void paintHighlightShape(Graphics2D g2d) {
-    final var center = mapComponent.getMapView()
+      final var center = mapComponent.getMapView()
                                    .calculateCenter(coordinate);
-    g2d.drawImage(highlightShape, center.x, center.y, null);
+      g2d.drawImage(highlightShape, center.x, center.y, null);
   }
 
   private void paintInfoText(Graphics2D g2d, Rectangle infoArea, int lineNo, String info) {
@@ -77,14 +80,11 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
     log.trace("mouseMotion: {}", e);
     coordinate = mapComponent.getMapView()
                              .findAt(e.getPoint());
-    info = switch (mapComponent.getGameMap()
-                               .read(coordinate, TileAttribute.TERRAIN)) {
-      case 0 -> "OCEAN";
-      case 1 -> "GRASSLAND";
-      case 2 -> "FOREST";
-      case 3 -> "MOUNTAIN";
-      default -> "UNKNOWN";
-    };
+    final var terrainCode = mapComponent.getGameMap()
+                                        .read(coordinate, TileAttribute.TERRAIN);
+    info = Terrain.values()[terrainCode].name();
+    elevation = String.valueOf(mapComponent.getGameMap()
+                                           .read(coordinate, TileAttribute.ELEVATION));
     mapComponent.repaint();
   }
 

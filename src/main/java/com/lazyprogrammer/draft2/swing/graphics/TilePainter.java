@@ -12,7 +12,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 
 @RequiredArgsConstructor
-public class ElevationPainter implements Painter {
+public class TilePainter implements Painter {
 
   private final Drawer drawer;
   private final BlueprintMap<Point> blueprintMap;
@@ -22,17 +22,15 @@ public class ElevationPainter implements Painter {
     gameMap.getCoordinates()
            .forEach(coordinate -> {
              final var onScreenLocation = view.calculateCenter(coordinate);
-             final var blueprint = getBluePrint(view.getZoomLevel(), gameMap.read(coordinate, TileAttribute.ELEVATION));
+             final var blueprint = getBluePrint(view.getZoomLevel(), gameMap.read(coordinate, TileAttribute.TERRAIN));
              final var gridImage = drawer.drawHex(blueprint);
              graphics2D.drawImage(gridImage, onScreenLocation.x, onScreenLocation.y, null);
            });
   }
 
-  private Blueprint getBluePrint(final int size, int elevation) {
-    final var brightness = 127;
-    final var key = new Point(size, brightness);
-    blueprintMap.update(key, point -> Blueprints.elevation(point.x, point.y));
+  private Blueprint getBluePrint(final int size, int terrain) {
+    final var key = new Point(size, terrain);
+    blueprintMap.update(key, point -> Blueprints.terrain(point.x, point.y));
     return blueprintMap.get(key);
   }
-
 }

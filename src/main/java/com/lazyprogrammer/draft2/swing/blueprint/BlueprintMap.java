@@ -12,6 +12,10 @@ public class BlueprintMap<K> {
   @Singular("blueprint")
   private final Map<K, Blueprint> map;
 
+  public BlueprintMap(Map<K, Blueprint> map) {
+    this.map = map;
+  }
+
   public Blueprint get(K key) {
     return map.getOrDefault(key, Blueprints.EMPTY);
   }
