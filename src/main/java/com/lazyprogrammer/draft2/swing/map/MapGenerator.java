@@ -4,5 +4,5 @@ import com.lazyprogrammer.draft2.swing.data.GameMap;
 
 public interface MapGenerator {
 
-  public GameMap createGameMap(MapConfig mapConfig);
+  GameMap createGameMap(MapConfig mapConfig);
 }

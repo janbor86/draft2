@@ -1,7 +1,7 @@
 package com.lazyprogrammer.draft2.swing;
 
 
-import com.lazyprogrammer.draft2.swing.data.GameMap;
+import com.lazyprogrammer.draft2.swing.data.Coordinate;
 import com.lazyprogrammer.draft2.swing.graphics.Painter;
 import com.lazyprogrammer.draft2.swing.map.MapView;
 import lombok.Getter;
@@ -14,6 +14,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @ToString
@@ -21,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HexMapComponent extends JComponent {
 
-  private final GameMap gameMap;
+  private final Set<Coordinate> validCoordinates;
   private final MapView mapView;
   private final List<Painter> painters;
 
@@ -32,7 +33,7 @@ public class HexMapComponent extends JComponent {
     final var g2d = (Graphics2D) graphics;
     g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
-    painters.forEach(painter -> painter.paint(g2d, mapView, gameMap.getCoordinates()));
+    painters.forEach(painter -> painter.paint(g2d, mapView, validCoordinates));
   }
 
 

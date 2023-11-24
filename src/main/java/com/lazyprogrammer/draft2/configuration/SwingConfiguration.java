@@ -27,7 +27,7 @@ public class SwingConfiguration {
 
   @Bean
   HexMapComponent hexMapComponent(GameMap gameMap, MapView mapView, List<Painter> painters) {
-    return new HexMapComponent(gameMap, mapView, painters);
+    return new HexMapComponent(gameMap.getCoordinates(), mapView, painters);
   }
 
   @Bean
