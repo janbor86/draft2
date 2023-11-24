@@ -15,12 +15,9 @@ import java.util.Map;
 @Slf4j
 public class Drawer {
 
-  public static final Drawer GLOBAL = new Drawer();
-
   public Drawer() {
     images = new HashMap<>();
   }
-
 
   Map<Blueprint, BufferedImage> images;
 
