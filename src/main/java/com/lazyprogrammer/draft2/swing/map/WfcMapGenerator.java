@@ -21,8 +21,8 @@ public class WfcMapGenerator implements MapGenerator {
     var usedCoordinates = initOceansAtTheEdge(columnNo, gameMap, rowNo);
     var availableCoordinates = new HashSet<>(gameMap.getCoordinates());
     availableCoordinates.removeAll(usedCoordinates);
-    var coord = pickRandomCoord(availableCoordinates);
-    log.info("{}", gameMap.read(coord, TileAttribute.TERRAIN));
+    var coordinate = pickRandomCoord(availableCoordinates);
+    log.info("{}", gameMap.read(coordinate, TileAttribute.TERRAIN));
     return gameMap;
   }
 
@@ -30,9 +30,9 @@ public class WfcMapGenerator implements MapGenerator {
     int randomIndex = ThreadLocalRandom.current()
                                        .nextInt(availableCoordinates.size());
     int i = 0;
-    for (Coordinate coord : availableCoordinates) {
+    for (Coordinate coordinate : availableCoordinates) {
       if (i == randomIndex) {
-        return coord;
+        return coordinate;
       }
       i++;
     }

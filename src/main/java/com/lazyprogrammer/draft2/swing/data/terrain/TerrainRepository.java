@@ -14,4 +14,8 @@ public class TerrainRepository {
     var terrainCode = gameMap.read(coordinate, TileAttribute.TERRAIN);
     return Terrain.of(terrainCode);
   }
+
+  public void write(Coordinate coordinate, TerrainType terrainType) {
+    gameMap.write(coordinate, TileAttribute.TERRAIN, terrainType.ordinal());
+  }
 }
