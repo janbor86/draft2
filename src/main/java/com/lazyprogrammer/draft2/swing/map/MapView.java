@@ -1,5 +1,6 @@
 package com.lazyprogrammer.draft2.swing.map;
 
+import com.lazyprogrammer.draft2.swing.data.Coordinate;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +51,7 @@ public class MapView {
     viewBoundary.setLocation(new Point(x, y));
   }
 
-  public Point findAt(Point at) {
+  public Coordinate findAt(Point at) {
     log.trace("search at {}", at);
     final var location = getLocation();
     log.trace("TL:{}", location);
@@ -66,14 +67,14 @@ public class MapView {
     x = Math.min(mapConfig.columnNo() - 1, Math.max(0, x));
     y = Math.min(mapConfig.rowNo() - 1, Math.max(0, y));
     log.trace("is it {}:{}", x, y);
-    return new Point(x, y);
+    return new Coordinate(x, y);
   }
 
-  public Point calculateCenter(Point coordinate) {
+  public Point calculateCenter(Coordinate coordinate) {
     Point offset = getLocation();
-    var x = coordinate.x * mapConfig.horizontalSpacing();
-    var verticalOffset = (int) (((coordinate.x % 2) * mapConfig.hexHeight()) / 2D);
-    var y = coordinate.y * mapConfig.verticalSpacing() - verticalOffset;
+    var x = coordinate.x() * mapConfig.horizontalSpacing();
+    var verticalOffset = (int) (((coordinate.x() % 2) * mapConfig.hexHeight()) / 2D);
+    var y = coordinate.y() * mapConfig.verticalSpacing() - verticalOffset;
     return new Point(x + offset.x, y + offset.y);
   }
 }

@@ -37,10 +37,12 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
     final var infoArea = createInfoArea(component);
     Graphics2D g2d = (Graphics2D) g;
     paintInfoArea(g2d, infoArea);
-    paintInfoText(g2d, infoArea, 1, "[x=" + coordinate.x + ",y=" + coordinate.y + "]");
+    if (coordinate != null) {
+      paintHighlightShape(g2d);
+      paintInfoText(g2d, infoArea, 1, "[x=" + coordinate.x() + ",y=" + coordinate.y() + "]");
+    }
     paintInfoText(g2d, infoArea, 2, info);
     paintInfoText(g2d, infoArea, 3, elevation);
-    paintHighlightShape(g2d);
   }
 
   private void paintHighlightShape(Graphics2D g2d) {
