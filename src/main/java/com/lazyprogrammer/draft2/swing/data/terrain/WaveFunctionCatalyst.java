@@ -1,13 +1,17 @@
 package com.lazyprogrammer.draft2.swing.data.terrain;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.PostConstruct;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.function.BiFunction;
 
-
+@Slf4j
 @RequiredArgsConstructor
 public class WaveFunctionCatalyst {
 
@@ -15,11 +19,17 @@ public class WaveFunctionCatalyst {
   private final Map<TerrainType, List<TerrainType>> possibleNeighbors;
   private final Random random;
 
+  @PostConstruct
+  void logProbabilities() {
+    log.info("Probabilities {}", probabilities);
+  }
+
   public boolean hasCollapsed() {
     return getPossibilityRange(probabilities) == 0;
   }
 
   public TerrainType collapse(List<TerrainType> context) {
+    logProbabilities();
     if (this.hasCollapsed())
       throw new IllegalStateException("This wave function has already collapsed");
     if (context.isEmpty())
@@ -29,6 +39,7 @@ public class WaveFunctionCatalyst {
   }
 
   private TerrainType collapse(Map<TerrainType, Integer> probabilities) {
+    log.info("collapse on {}", probabilities);
     var possibilityRange = getPossibilityRange(probabilities);
     if (possibilityRange == 0) {
       return collapse();
@@ -40,6 +51,7 @@ public class WaveFunctionCatalyst {
       Integer value = entry.getValue();
       counter += value;
       if (counter >= outcome) {
+        reduce(key);
         return key;
       }
     }
@@ -51,14 +63,27 @@ public class WaveFunctionCatalyst {
   }
 
   private Map<TerrainType, Integer> calculateModifiedProbabilities(List<TerrainType> context) {
-    final var allowedNeighbors = context.stream()
-                                        .flatMap(terrainType -> possibleNeighbors.get(terrainType)
-                                                                                 .stream())
-                                        .toList();
+    log.info("context: {}", context);
+    final var allowedNeighbors = getAllowedNeighbors(context);
+    log.info("allowed neighbors: {}", allowedNeighbors);
+    return calculateProbabilities(allowedNeighbors);
+  }
+
+  private Map<TerrainType, Integer> calculateProbabilities(List<TerrainType> allowedNeighbors) {
     final Map<TerrainType, Integer> probabilitiesBasedOnContext = new HashMap<>();
-    allowedNeighbors.forEach(terrainType -> probabilitiesBasedOnContext.compute(terrainType,
-        (key, oldValue) -> probabilities.get(key) + (oldValue != null ? oldValue : 0)));
+    allowedNeighbors.forEach(terrainType -> probabilitiesBasedOnContext.compute(terrainType, addTerrainProbability()));
     return probabilitiesBasedOnContext;
+  }
+
+  private BiFunction<TerrainType, Integer, Integer> addTerrainProbability() {
+    return (key, oldValue) -> probabilities.get(key) + (oldValue != null ? oldValue : 0);
+  }
+
+  private List<TerrainType> getAllowedNeighbors(List<TerrainType> context) {
+    return context.stream()
+                  .map(possibleNeighbors::get)
+                  .flatMap(Collection::stream)
+                  .toList();
   }
 
   private int getPossibilityRange(Map<TerrainType, Integer> probabilities) {
@@ -67,4 +92,9 @@ public class WaveFunctionCatalyst {
                         .reduce(0, Integer::sum);
   }
 
+  public void reduce(TerrainType type) {
+    final var oldValue = probabilities.get(type);
+    if (oldValue > 0)
+      probabilities.put(type, oldValue - 1);
+  }
 }

@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.PostConstruct;
 import javax.swing.JComponent;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -23,16 +22,10 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class HexMapComponent extends JComponent {
 
+  @ToString.Exclude
   private final Set<Coordinate> validCoordinates;
   private final MapView mapView;
   private final List<Painter> painters;
-
-  @PostConstruct
-  void addListeners() {
-    final var mapMouseAdapter = new MapMouseAdapter(this);
-    this.addMouseListener(mapMouseAdapter);
-    this.addMouseMotionListener(mapMouseAdapter);
-  }
 
   @Override
   protected void paintComponent(Graphics graphics) {

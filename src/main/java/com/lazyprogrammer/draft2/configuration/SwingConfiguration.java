@@ -4,8 +4,12 @@ import com.lazyprogrammer.draft2.swing.Hex;
 import com.lazyprogrammer.draft2.swing.HexMapComponent;
 import com.lazyprogrammer.draft2.swing.InfoLayerUI;
 import com.lazyprogrammer.draft2.swing.MainPanel;
+import com.lazyprogrammer.draft2.swing.MapMouseAdapter;
+import com.lazyprogrammer.draft2.swing.WaveFunctionAdapter;
+import com.lazyprogrammer.draft2.swing.WaveFunctionKeyAdapter;
 import com.lazyprogrammer.draft2.swing.blueprint.Blueprints;
 import com.lazyprogrammer.draft2.swing.data.GameMap;
+import com.lazyprogrammer.draft2.swing.data.terrain.TerrainGenerator;
 import com.lazyprogrammer.draft2.swing.data.terrain.TerrainRepository;
 import com.lazyprogrammer.draft2.swing.graphics.Drawer;
 import com.lazyprogrammer.draft2.swing.graphics.Painter;
@@ -26,8 +30,18 @@ public class SwingConfiguration {
   }
 
   @Bean
-  HexMapComponent hexMapComponent(GameMap gameMap, MapView mapView, List<Painter> painters) {
-    return new HexMapComponent(gameMap.getCoordinates(), mapView, painters);
+  HexMapComponent hexMapComponent(GameMap gameMap, MapView mapView, List<Painter> painters,
+                                  TerrainGenerator terrainGenerator, TerrainRepository terrainRepository) {
+    final var hexMapComponent = new HexMapComponent(gameMap.getCoordinates(), mapView, painters);
+    final var mapMouseAdapter = new MapMouseAdapter(hexMapComponent);
+    hexMapComponent.addMouseListener(mapMouseAdapter);
+    hexMapComponent.addMouseMotionListener(mapMouseAdapter);
+    final var waveFunctionAdapter = new WaveFunctionAdapter(terrainGenerator, hexMapComponent);
+    hexMapComponent.addMouseListener(waveFunctionAdapter);
+    hexMapComponent.setFocusable(true);
+    final var waveFunctionKeyAdapter = new WaveFunctionKeyAdapter(terrainRepository, terrainGenerator, hexMapComponent);
+    hexMapComponent.addKeyListener(waveFunctionKeyAdapter);
+    return hexMapComponent;
   }
 
   @Bean

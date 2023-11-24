@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
@@ -71,7 +72,7 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
   public void installUI(JComponent c) {
     super.installUI(c);
     var l = (JLayer<?>) c;
-    l.setLayerEventMask(AWTEvent.MOUSE_MOTION_EVENT_MASK);
+    l.setLayerEventMask(AWTEvent.MOUSE_MOTION_EVENT_MASK | AWTEvent.KEY_EVENT_MASK);
   }
 
 
@@ -85,4 +86,13 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
     mapComponent.repaint();
   }
 
+  @Override
+  protected void processKeyEvent(KeyEvent e, JLayer<? extends HexMapComponent> l) {
+    final var mapView = mapComponent.getMapView();
+    coordinate = mapView.getFocused();
+    if (coordinate != null)
+      info = terrainRepository.findTerrain(coordinate)
+                              .name();
+    mapComponent.repaint();
+  }
 }

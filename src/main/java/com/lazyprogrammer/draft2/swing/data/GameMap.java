@@ -4,14 +4,21 @@ import com.lazyprogrammer.draft2.swing.map.MapConfig;
 
 import java.awt.Point;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GameMap {
 
-  private static final Set<Coordinate> neighbors = Set.of(new Coordinate(-1, 0), new Coordinate(-1, 1),
-      new Coordinate(0, -1), new Coordinate(0, +1), new Coordinate(1, 0), new Coordinate(1, 1));
+  private static final Set<Coordinate> neighbors = Set.of(
+      new Coordinate(-1, 0),
+      new Coordinate(-1, 1),
+      new Coordinate(0, -1),
+      new Coordinate(0, +1),
+      new Coordinate(1, 0),
+      new Coordinate(1, 1)
+  );
   private final Map<Coordinate, Tile> tiles;
 
   public GameMap(MapConfig mapConfig) {
@@ -36,7 +43,7 @@ public class GameMap {
   }
 
   public Set<Coordinate> getCoordinates() {
-    return tiles.keySet();
+    return new HashSet<>(tiles.keySet());
   }
 
   public Set<Coordinate> getNeighbors(Coordinate coordinate) {
@@ -44,7 +51,7 @@ public class GameMap {
                     .map(n -> {
                       final var point = new Point(coordinate.x(), coordinate.y());
                       var transformationOffset = -1 * n.x() * n.x() * coordinate.x() % 2;
-                      point.translate(n.x(), n.y() + +transformationOffset);
+                      point.translate(n.x(), n.y() + transformationOffset);
                       return new Coordinate(point.x, point.y);
                     })
                     .filter(tiles::containsKey)

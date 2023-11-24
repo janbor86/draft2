@@ -15,6 +15,8 @@ public class MapView {
   private final Rectangle viewBoundary;
   @Getter
   private final MapConfig mapConfig;
+  @Getter
+  private Coordinate focused;
 
   public MapView(MapConfig mapConfig) {
     this.mapConfig = mapConfig;
@@ -41,6 +43,13 @@ public class MapView {
   public void translateView(int dx, int dy) {
     translate(dx, dy);
     correctLocation();
+  }
+
+  public void setView(int x, int y) {
+    log.trace("set view: {}x{}", x, y);
+    viewBoundary.setLocation(new Point(x, y));
+    correctLocation();
+    log.info("{}", getLocation());
   }
 
   private void correctLocation() {
@@ -71,10 +80,25 @@ public class MapView {
   }
 
   public Point calculateCenter(Coordinate coordinate) {
+    final var locationOnMap = calculateLocationOnMap(coordinate);
     Point offset = getLocation();
+    locationOnMap.translate(offset.x, offset.y);
+    return locationOnMap;
+  }
+
+  private Point calculateLocationOnMap(Coordinate coordinate) {
     var x = coordinate.x() * mapConfig.horizontalSpacing();
     var verticalOffset = (int) (((coordinate.x() % 2) * mapConfig.hexHeight()) / 2D);
     var y = coordinate.y() * mapConfig.verticalSpacing() - verticalOffset;
-    return new Point(x + offset.x, y + offset.y);
+    return new Point(x, y);
+  }
+
+  public void focusTo(Coordinate focus) {
+    focused = focus;
+    final var mapLocation = calculateLocationOnMap(focus);
+    log.trace("focus to {} at {}", mapLocation, focus);
+    final var horizontalOffset = viewBoundary.width / 2;
+    final var verticalOffset = viewBoundary.height / 2;
+    setView(-mapLocation.x + horizontalOffset, -mapLocation.y + verticalOffset);
   }
 }
