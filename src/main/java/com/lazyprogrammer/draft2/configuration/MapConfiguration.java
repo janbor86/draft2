@@ -4,7 +4,6 @@ import com.lazyprogrammer.draft2.swing.Hex;
 import com.lazyprogrammer.draft2.swing.blueprint.BlueprintMap;
 import com.lazyprogrammer.draft2.swing.data.GameMap;
 import com.lazyprogrammer.draft2.swing.graphics.Drawer;
-import com.lazyprogrammer.draft2.swing.graphics.ElevationPainter;
 import com.lazyprogrammer.draft2.swing.graphics.GridPainter;
 import com.lazyprogrammer.draft2.swing.graphics.Painter;
 import com.lazyprogrammer.draft2.swing.graphics.TilePainter;
@@ -50,12 +49,6 @@ public class MapConfiguration {
   @Order(2)
   Painter tilePainter(Drawer drawer) {
     return new TilePainter(drawer, new BlueprintMap<>(new HashMap<>()));
-  }
-
-  @Bean
-  @Order(1)
-  Painter elevationPainter(Drawer drawer) {
-    return new ElevationPainter(drawer, new BlueprintMap<>(new HashMap<>()));
   }
 
   @Bean
