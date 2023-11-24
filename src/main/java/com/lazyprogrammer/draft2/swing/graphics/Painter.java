@@ -1,11 +1,12 @@
 package com.lazyprogrammer.draft2.swing.graphics;
 
-import com.lazyprogrammer.draft2.swing.data.GameMap;
+import com.lazyprogrammer.draft2.swing.data.Coordinate;
 import com.lazyprogrammer.draft2.swing.map.MapView;
 
 import java.awt.Graphics2D;
+import java.util.Set;
 
 public interface Painter {
 
-  void paint(Graphics2D graphics2D, MapView view, GameMap gameMap);
+  void paint(Graphics2D graphics2D, MapView view, Set<Coordinate> coordinates);
 }

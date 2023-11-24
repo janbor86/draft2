@@ -3,6 +3,7 @@ package com.lazyprogrammer.draft2.configuration;
 import com.lazyprogrammer.draft2.swing.Hex;
 import com.lazyprogrammer.draft2.swing.blueprint.BlueprintMap;
 import com.lazyprogrammer.draft2.swing.data.GameMap;
+import com.lazyprogrammer.draft2.swing.data.terrain.TerrainRepository;
 import com.lazyprogrammer.draft2.swing.graphics.Drawer;
 import com.lazyprogrammer.draft2.swing.graphics.GridPainter;
 import com.lazyprogrammer.draft2.swing.graphics.Painter;
@@ -29,6 +30,7 @@ public class MapConfiguration {
   MapGenerator mapGenerator() {
     return new WfcMapGenerator();
   }
+
   @Bean
   GameMap gameMap(MapConfig mapConfig, MapGenerator mapGenerator) {
     return mapGenerator.createGameMap(mapConfig);
@@ -47,8 +49,8 @@ public class MapConfiguration {
 
   @Bean
   @Order(2)
-  Painter tilePainter(Drawer drawer) {
-    return new TilePainter(drawer, new BlueprintMap<>(new HashMap<>()));
+  Painter tilePainter(Drawer drawer, TerrainRepository terrainRepository) {
+    return new TilePainter(drawer, new BlueprintMap<>(new HashMap<>()), terrainRepository);
   }
 
   @Bean

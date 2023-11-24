@@ -32,7 +32,7 @@ public class HexMapComponent extends JComponent {
     final var g2d = (Graphics2D) graphics;
     g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
-    painters.forEach(painter -> painter.paint(g2d, mapView, gameMap));
+    painters.forEach(painter -> painter.paint(g2d, mapView, gameMap.getCoordinates()));
   }
 
 
