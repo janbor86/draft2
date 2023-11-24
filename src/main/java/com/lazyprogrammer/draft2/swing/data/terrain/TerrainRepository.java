@@ -11,6 +11,7 @@ public class TerrainRepository {
   private final GameMap gameMap;
 
   public Terrain findTerrain(Coordinate coordinate) {
-    gameMap.read(coordinate, TileAttribute.TERRAIN); return null;
+    var terrainCode = gameMap.read(coordinate, TileAttribute.TERRAIN);
+    return Terrain.of(terrainCode);
   }
 }

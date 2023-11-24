@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class TileInfo {
 
+  public static final int UNDEFINED = 0;
+
   private final Map<TileAttribute, Integer> infoMap;
 
   public TileInfo() {
@@ -12,7 +14,7 @@ public class TileInfo {
   }
 
   public Integer get(TileAttribute attribute) {
-    return infoMap.getOrDefault(attribute, Integer.MIN_VALUE);
+    return infoMap.getOrDefault(attribute, 0);
   }
 
   public void set(TileAttribute attribute, Integer value) {

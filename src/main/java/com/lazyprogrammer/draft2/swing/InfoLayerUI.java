@@ -1,8 +1,7 @@
 package com.lazyprogrammer.draft2.swing;
 
 import com.lazyprogrammer.draft2.swing.data.Coordinate;
-import com.lazyprogrammer.draft2.swing.data.TileAttribute;
-import com.lazyprogrammer.draft2.swing.data.terrain.TerrainType;
+import com.lazyprogrammer.draft2.swing.data.terrain.TerrainRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,6 +28,7 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
 
   private final HexMapComponent mapComponent;
   private final BufferedImage highlightShape;
+  private final TerrainRepository terrainRepository;
 
   @Override
   public void paint(Graphics g, JComponent component) {
@@ -80,9 +80,8 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
     log.trace("mouseMotion: {}", e);
     coordinate = mapComponent.getMapView()
                              .findAt(e.getPoint());
-    final var terrainCode = mapComponent.getGameMap()
-                                        .read(coordinate, TileAttribute.TERRAIN);
-    info = TerrainType.values()[terrainCode].name();
+    info = terrainRepository.findTerrain(coordinate)
+                            .name();
     mapComponent.repaint();
   }
 

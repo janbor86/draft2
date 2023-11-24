@@ -6,6 +6,7 @@ import com.lazyprogrammer.draft2.swing.InfoLayerUI;
 import com.lazyprogrammer.draft2.swing.MainPanel;
 import com.lazyprogrammer.draft2.swing.blueprint.Blueprints;
 import com.lazyprogrammer.draft2.swing.data.GameMap;
+import com.lazyprogrammer.draft2.swing.data.terrain.TerrainRepository;
 import com.lazyprogrammer.draft2.swing.graphics.Drawer;
 import com.lazyprogrammer.draft2.swing.graphics.Painter;
 import com.lazyprogrammer.draft2.swing.map.MapView;
@@ -30,8 +31,9 @@ public class SwingConfiguration {
   }
 
   @Bean
-  JLayer<HexMapComponent> infoLayer(HexMapComponent hexMapComponent, final BufferedImage highlightImage) {
-    return new JLayer<>(hexMapComponent, new InfoLayerUI(hexMapComponent, highlightImage));
+  JLayer<HexMapComponent> infoLayer(HexMapComponent hexMapComponent, final BufferedImage highlightImage,
+                                    TerrainRepository terrainRepository) {
+    return new JLayer<>(hexMapComponent, new InfoLayerUI(hexMapComponent, highlightImage, terrainRepository));
   }
 
   @Bean
