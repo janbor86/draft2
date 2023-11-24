@@ -16,9 +16,6 @@ public class MainPanel extends JPanel {
     setDoubleBuffered(true);
     setBackground(Color.BLACK);
     setLayout(new BorderLayout());
-    final var mapMouseAdapter = new MapMouseAdapter(mapComponent);
-    mapComponent.addMouseListener(mapMouseAdapter);
-    mapComponent.addMouseMotionListener(mapMouseAdapter);
     addComponentListener(createComponentAdapter(mapComponent));
     add(infoLayer, BorderLayout.CENTER);
   }
