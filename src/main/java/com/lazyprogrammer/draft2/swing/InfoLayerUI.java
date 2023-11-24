@@ -1,7 +1,8 @@
 package com.lazyprogrammer.draft2.swing;
 
-import com.lazyprogrammer.draft2.swing.data.Terrain;
+import com.lazyprogrammer.draft2.swing.data.Coordinate;
 import com.lazyprogrammer.draft2.swing.data.TileAttribute;
+import com.lazyprogrammer.draft2.swing.data.terrain.TerrainType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,7 +13,6 @@ import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -26,7 +26,7 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
 
   String info = "";
   String elevation = "";
-  Point coordinate = new Point();
+  Coordinate coordinate;
 
   private final HexMapComponent mapComponent;
   private final BufferedImage highlightShape;
@@ -44,9 +44,9 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
   }
 
   private void paintHighlightShape(Graphics2D g2d) {
-      final var center = mapComponent.getMapView()
+    final var center = mapComponent.getMapView()
                                    .calculateCenter(coordinate);
-      g2d.drawImage(highlightShape, center.x, center.y, null);
+    g2d.drawImage(highlightShape, center.x, center.y, null);
   }
 
   private void paintInfoText(Graphics2D g2d, Rectangle infoArea, int lineNo, String info) {
@@ -82,7 +82,7 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
                              .findAt(e.getPoint());
     final var terrainCode = mapComponent.getGameMap()
                                         .read(coordinate, TileAttribute.TERRAIN);
-    info = Terrain.values()[terrainCode].name();
+    info = TerrainType.values()[terrainCode].name();
     elevation = String.valueOf(mapComponent.getGameMap()
                                            .read(coordinate, TileAttribute.ELEVATION));
     mapComponent.repaint();
