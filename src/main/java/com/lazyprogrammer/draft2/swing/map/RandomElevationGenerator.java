@@ -47,11 +47,11 @@ public class RandomElevationGenerator implements MapGenerator {
              else if (elevation < -201)
                gameMap.write(point, TileAttribute.TERRAIN, Terrain.SEA.ordinal());
              else if (elevation < 0)
-               gameMap.write(point, TileAttribute.TERRAIN, Terrain.SHALLOW.ordinal());
+               gameMap.write(point, TileAttribute.TERRAIN, Terrain.ISLANDS.ordinal());
              else if (elevation < 101)
-               gameMap.write(point, TileAttribute.TERRAIN, Terrain.LOWLAND.ordinal());
+               gameMap.write(point, TileAttribute.TERRAIN, Terrain.WETLAND.ordinal());
              else if (elevation < 300)
-               gameMap.write(point, TileAttribute.TERRAIN, Terrain.GRASSLAND.ordinal());
+               gameMap.write(point, TileAttribute.TERRAIN, Terrain.PLAINS.ordinal());
              else if (elevation < 1000)
                gameMap.write(point, TileAttribute.TERRAIN, Terrain.HILLS.ordinal());
              else if (elevation < 2500)
