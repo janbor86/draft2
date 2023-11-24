@@ -25,7 +25,6 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
   private static final Color INFO_AREA_COLOR = new Color(0, 0, 0, 64);
 
   String info = "";
-  String elevation = "";
   Coordinate coordinate;
 
   private final HexMapComponent mapComponent;
@@ -42,7 +41,6 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
       paintInfoText(g2d, infoArea, 1, "[x=" + coordinate.x() + ",y=" + coordinate.y() + "]");
     }
     paintInfoText(g2d, infoArea, 2, info);
-    paintInfoText(g2d, infoArea, 3, elevation);
   }
 
   private void paintHighlightShape(Graphics2D g2d) {
@@ -85,8 +83,6 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
     final var terrainCode = mapComponent.getGameMap()
                                         .read(coordinate, TileAttribute.TERRAIN);
     info = TerrainType.values()[terrainCode].name();
-    elevation = String.valueOf(mapComponent.getGameMap()
-                                           .read(coordinate, TileAttribute.ELEVATION));
     mapComponent.repaint();
   }
 
