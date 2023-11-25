@@ -1,10 +1,7 @@
 package com.lazyprogrammer.draft2.configuration;
 
 import com.lazyprogrammer.draft2.swing.data.GameMap;
-import com.lazyprogrammer.draft2.swing.data.terrain.TerrainGenerator;
-import com.lazyprogrammer.draft2.swing.data.terrain.TerrainRepository;
-import com.lazyprogrammer.draft2.swing.data.terrain.TerrainType;
-import com.lazyprogrammer.draft2.swing.data.terrain.WaveFunctionCatalyst;
+import com.lazyprogrammer.draft2.swing.data.terrain.*;
 import com.lazyprogrammer.draft2.swing.map.MapConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,17 +21,25 @@ public class DataConfiguration {
   }
 
   @Bean
-  TerrainGenerator terrainGenerator(WaveFunctionCatalyst wfc, TerrainRepository terrainRepository) {
-    final var terrainGenerator = new TerrainGenerator(wfc, terrainRepository);
+  TerrainGenerator terrainGenerator(
+      WaveFunctionCatalyst wfc,
+      TerrainRepository terrainRepository,
+      MapFillingStrategy mapFillingStrategy) {
+    final var terrainGenerator = new TerrainGenerator(wfc, terrainRepository, mapFillingStrategy);
     terrainGenerator.load();
     return terrainGenerator;
   }
 
   @Bean
-  WaveFunctionCatalyst waveFunctionCatalyst(MapConfig mapConfig) {
+  MapFillingStrategy mapFillingStrategy(MapConfig mapConfig) {
+    return new OkayFiller(mapConfig, new Random());
+  }
+
+  @Bean
+  WaveFunctionCatalyst waveFunctionCatalyst(
+      MapConfig mapConfig, WaveFunctionContextHandler contextHandler) {
     var probabilities = getProbabilities(mapConfig);
-    var possibleNeighbors = getPossibleNeighbors();
-    return new WaveFunctionCatalyst(probabilities, possibleNeighbors, new Random());
+    return new WaveFunctionCatalyst(probabilities, new Random(), contextHandler);
   }
 
   private Map<TerrainType, Integer> getProbabilities(MapConfig mapConfig) {
@@ -42,20 +47,23 @@ public class DataConfiguration {
     final var columnNo = mapConfig.columnNo();
     final var rowNo = mapConfig.rowNo();
     final var allTile = columnNo * rowNo;
-    probabilities.put(TerrainType.OCEAN, 45 * allTile / 100);
-    probabilities.put(TerrainType.SEA, 15 * allTile / 100);
-    probabilities.put(TerrainType.ISLANDS, 5 * allTile / 100);
-    probabilities.put(TerrainType.WETLAND, 4 * allTile / 100);
-    probabilities.put(TerrainType.PLAINS, 17 * allTile / 100);
-    probabilities.put(TerrainType.HILLS, 8 * allTile / 100);
-    probabilities.put(TerrainType.MOUNTAINS, 4 * allTile / 100);
-    probabilities.put(TerrainType.MOUNTAIN_RANGE, 2 * allTile / 100);
-    final var assigned = probabilities.values()
-                                      .stream()
-                                      .flatMapToInt(IntStream::of)
-                                      .sum();
-    probabilities.put(TerrainType.PLAINS, probabilities.get(TerrainType.PLAINS) + allTile - assigned);
+    probabilities.put(TerrainType.OCEAN, 35 * allTile / 100);
+    probabilities.put(TerrainType.SEA, 25 * allTile / 100);
+    probabilities.put(TerrainType.ISLANDS, 3 * allTile / 100);
+    probabilities.put(TerrainType.WETLAND, 3 * allTile / 100);
+    probabilities.put(TerrainType.PLAINS, 16 * allTile / 100);
+    probabilities.put(TerrainType.HILLS, 9 * allTile / 100);
+    probabilities.put(TerrainType.MOUNTAINS, 6 * allTile / 100);
+    probabilities.put(TerrainType.MOUNTAIN_RANGE, 3 * allTile / 100);
+    final var assigned = probabilities.values().stream().flatMapToInt(IntStream::of).sum();
+    probabilities.put(
+        TerrainType.PLAINS, probabilities.get(TerrainType.PLAINS) + allTile - assigned);
     return probabilities;
+  }
+
+  @Bean
+  WaveFunctionContextHandler waveFunctionContextHandler() {
+    return new PermissiveContextHandler(getPossibleNeighbors());
   }
 
   private Map<TerrainType, List<TerrainType>> getPossibleNeighbors() {
@@ -71,12 +79,10 @@ public class DataConfiguration {
         TerrainType.PLAINS,
         List.of(TerrainType.WETLAND, TerrainType.PLAINS, TerrainType.HILLS),
         TerrainType.HILLS,
-        List.of(TerrainType.PLAINS, TerrainType.HILLS, TerrainType.MOUNTAINS),
+        List.of(TerrainType.HILLS, TerrainType.MOUNTAINS),
         TerrainType.MOUNTAINS,
         List.of(TerrainType.MOUNTAINS, TerrainType.MOUNTAIN_RANGE),
         TerrainType.MOUNTAIN_RANGE,
-        List.of(TerrainType.MOUNTAIN_RANGE)
-    );
+        List.of(TerrainType.MOUNTAIN_RANGE));
   }
-
 }

@@ -4,20 +4,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.function.BiFunction;
 
 @Slf4j
 @RequiredArgsConstructor
 public class WaveFunctionCatalyst {
 
   private final Map<TerrainType, Integer> probabilities;
-  private final Map<TerrainType, List<TerrainType>> possibleNeighbors;
   private final Random random;
+  private final WaveFunctionContextHandler contextHandler;
 
   @PostConstruct
   void logProbabilities() {
@@ -32,9 +29,9 @@ public class WaveFunctionCatalyst {
     logProbabilities();
     if (this.hasCollapsed())
       throw new IllegalStateException("This wave function has already collapsed");
-    if (context.isEmpty())
-      return collapse();
-    final var probabilitiesBasedOnContext = calculateModifiedProbabilities(context);
+    if (context.isEmpty()) return collapse();
+    final var probabilitiesBasedOnContext =
+        contextHandler.calculateModifiedProbabilities(context, probabilities);
     return collapse(probabilitiesBasedOnContext);
   }
 
@@ -62,39 +59,12 @@ public class WaveFunctionCatalyst {
     return collapse(probabilities);
   }
 
-  private Map<TerrainType, Integer> calculateModifiedProbabilities(List<TerrainType> context) {
-    log.info("context: {}", context);
-    final var allowedNeighbors = getAllowedNeighbors(context);
-    log.info("allowed neighbors: {}", allowedNeighbors);
-    return calculateProbabilities(allowedNeighbors);
-  }
-
-  private Map<TerrainType, Integer> calculateProbabilities(List<TerrainType> allowedNeighbors) {
-    final Map<TerrainType, Integer> probabilitiesBasedOnContext = new HashMap<>();
-    allowedNeighbors.forEach(terrainType -> probabilitiesBasedOnContext.compute(terrainType, addTerrainProbability()));
-    return probabilitiesBasedOnContext;
-  }
-
-  private BiFunction<TerrainType, Integer, Integer> addTerrainProbability() {
-    return (key, oldValue) -> probabilities.get(key) + (oldValue != null ? oldValue : 0);
-  }
-
-  private List<TerrainType> getAllowedNeighbors(List<TerrainType> context) {
-    return context.stream()
-                  .map(possibleNeighbors::get)
-                  .flatMap(Collection::stream)
-                  .toList();
-  }
-
   private int getPossibilityRange(Map<TerrainType, Integer> probabilities) {
-    return probabilities.values()
-                        .stream()
-                        .reduce(0, Integer::sum);
+    return probabilities.values().stream().reduce(0, Integer::sum);
   }
 
   public void reduce(TerrainType type) {
     final var oldValue = probabilities.get(type);
-    if (oldValue > 0)
-      probabilities.put(type, oldValue - 1);
+    if (oldValue > 0) probabilities.put(type, oldValue - 1);
   }
 }

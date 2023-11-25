@@ -13,10 +13,8 @@ import java.awt.Rectangle;
 public class MapView {
 
   private final Rectangle viewBoundary;
-  @Getter
-  private final MapConfig mapConfig;
-  @Getter
-  private Coordinate focused;
+  @Getter private final MapConfig mapConfig;
+  @Getter private Coordinate focused;
 
   public MapView(MapConfig mapConfig) {
     this.mapConfig = mapConfig;
@@ -25,14 +23,6 @@ public class MapView {
 
   public int getZoomLevel() {
     return mapConfig.hexSize();
-  }
-
-  public void translate(int dx, int dy) {
-    viewBoundary.translate(dx, dy);
-  }
-
-  public Point getLocation() {
-    return viewBoundary.getLocation();
   }
 
   public void resize(int width, int height) {
@@ -45,19 +35,20 @@ public class MapView {
     correctLocation();
   }
 
-  public void setView(int x, int y) {
-    log.trace("set view: {}x{}", x, y);
-    viewBoundary.setLocation(new Point(x, y));
-    correctLocation();
-    log.info("{}", getLocation());
+  public void translate(int dx, int dy) {
+    viewBoundary.translate(dx, dy);
   }
 
   private void correctLocation() {
-    var minimumX = viewBoundary.width - mapConfig.width();
-    var minimumY = viewBoundary.height - mapConfig.height();
-    var x = Math.min(0, Math.max(minimumX, getLocation().x));
-    var y = Math.min(mapConfig.verticalSpacing() / 2, Math.max(minimumY, getLocation().y));
+    var minimumX = 6 * viewBoundary.width / 7 - mapConfig.width();
+    var minimumY = 4 * viewBoundary.height / 5 - mapConfig.height();
+    var x = Math.min(viewBoundary.width / 7, Math.max(minimumX, getLocation().x));
+    var y = Math.min(viewBoundary.height / 5, Math.max(minimumY, getLocation().y));
     viewBoundary.setLocation(new Point(x, y));
+  }
+
+  public Point getLocation() {
+    return viewBoundary.getLocation();
   }
 
   public Coordinate findAt(Point at) {
@@ -100,5 +91,12 @@ public class MapView {
     final var horizontalOffset = viewBoundary.width / 2;
     final var verticalOffset = viewBoundary.height / 2;
     setView(-mapLocation.x + horizontalOffset, -mapLocation.y + verticalOffset);
+  }
+
+  public void setView(int x, int y) {
+    log.trace("set view: {}x{}", x, y);
+    viewBoundary.setLocation(new Point(x, y));
+    correctLocation();
+    log.info("{}", getLocation());
   }
 }

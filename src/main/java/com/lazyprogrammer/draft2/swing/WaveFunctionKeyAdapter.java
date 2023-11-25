@@ -1,14 +1,17 @@
 package com.lazyprogrammer.draft2.swing;
 
+import com.lazyprogrammer.draft2.swing.data.Coordinate;
 import com.lazyprogrammer.draft2.swing.data.terrain.TerrainGenerator;
 import com.lazyprogrammer.draft2.swing.data.terrain.TerrainRepository;
 import com.lazyprogrammer.draft2.swing.data.terrain.TerrainType;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,22 +24,12 @@ public class WaveFunctionKeyAdapter extends KeyAdapter {
   @Override
   public void keyPressed(KeyEvent e) {
     var rounds = 0;
-    if (KeyEvent.VK_RIGHT == e.getKeyCode())
-      rounds = 1;
-    if (KeyEvent.VK_END == e.getKeyCode())
-      rounds = repository.findAll()
-                         .size();
-    while (rounds-- > 0) {
-      final var allUndefined = new ArrayList<>(repository.findAll(TerrainType.UNDEFINED));
-      if (allUndefined.isEmpty())
-        return;
-
-//      Collections.shuffle(allUndefined);
-      final var next = allUndefined.get(0);
-      generator.generateTerrainAt(next);
-      mapComponent.getMapView()
-                  .focusTo(next);
-    }
+    if (KeyEvent.VK_RIGHT == e.getKeyCode()) rounds = 1;
+    if (KeyEvent.VK_SPACE == e.getKeyCode()) rounds = repository.findAll().size();
+    if (rounds < 1) return;
+    List<Coordinate> generated = generator.generate(rounds);
+    if (generated.size() < 1) return;
+    mapComponent.getMapView().focusTo(generated.get(generated.size() - 1));
     mapComponent.repaint();
   }
 }

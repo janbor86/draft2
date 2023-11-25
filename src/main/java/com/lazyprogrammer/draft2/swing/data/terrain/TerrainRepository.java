@@ -5,8 +5,7 @@ import com.lazyprogrammer.draft2.swing.data.GameMap;
 import com.lazyprogrammer.draft2.swing.data.TileAttribute;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -14,10 +13,24 @@ public class TerrainRepository {
 
   private final GameMap gameMap;
 
-  public Map<Coordinate, Terrain> findAll() {
-    return gameMap.getCoordinates()
-                  .stream()
-                  .collect(Collectors.toMap(c -> c, this::findTerrain));
+  public void write(Coordinate coordinate, TerrainType terrainType) {
+    gameMap.write(coordinate, TileAttribute.TERRAIN, terrainType.ordinal());
+  }
+
+  public List<TerrainType> findNeighboringTerrain(Coordinate coordinate, int range) {
+    var neighbors = new HashSet<Coordinate>();
+    if (range < 1) return Collections.emptyList();
+    neighbors.addAll(gameMap.getNeighbors(coordinate));
+    while (--range > 0) {
+      var newNeighbors = new HashSet<Coordinate>();
+      neighbors.forEach(n -> newNeighbors.addAll(gameMap.getNeighbors(n)));
+      neighbors.addAll(newNeighbors);
+    }
+    return neighbors.stream()
+        .map(this::findTerrain)
+        .filter(Terrain::isDefined)
+        .map(Terrain::type)
+        .toList();
   }
 
   public Terrain findTerrain(Coordinate coordinate) {
@@ -25,26 +38,19 @@ public class TerrainRepository {
     return Terrain.of(terrainCode);
   }
 
-  public void write(Coordinate coordinate, TerrainType terrainType) {
-    gameMap.write(coordinate, TileAttribute.TERRAIN, terrainType.ordinal());
-  }
-
   public List<TerrainType> findNeighboringTerrain(Coordinate coordinate) {
-    final var neighbors = gameMap.getNeighbors(coordinate);
-    return neighbors.stream()
-                    .map(this::findTerrain)
-                    .filter(Terrain::isDefined)
-                    .map(Terrain::type)
-                    .toList();
+    return findNeighboringTerrain(coordinate, 1);
   }
 
   public List<Coordinate> findAll(TerrainType terrainType) {
     final var all = findAll();
-    return all.entrySet()
-              .stream()
-              .filter(e -> terrainType == e.getValue()
-                                           .type())
-              .map(Map.Entry::getKey)
-              .toList();
+    return all.entrySet().stream()
+        .filter(e -> terrainType == e.getValue().type())
+        .map(Map.Entry::getKey)
+        .toList();
+  }
+
+  public Map<Coordinate, Terrain> findAll() {
+    return gameMap.getCoordinates().stream().collect(Collectors.toMap(c -> c, this::findTerrain));
   }
 }

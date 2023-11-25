@@ -15,22 +15,17 @@ public class Blueprints {
                                                  .build();
   public static final Color OCEAN = new Color(0, 94, 184, 196);
   public static final Color SEA = new Color(64, 128, 222, 196);
-  public static final Color SHALLOW = new Color(90, 200, 240, 196);
-  public static final Color SWAMP = new Color(9, 84, 22, 196);
-  public static final Color GRASS = new Color(9, 176, 34, 196);
-  public static final Color FOREST = new Color(120, 99, 66, 196);
-  public static final Color MOUNTAIN = new Color(78, 65, 46, 196);
-  public static final Color PEEKS = new Color(200, 200, 200, 196);
+  public static final Color SHALLOW = new Color(90, 180, 240, 196);
+  public static final Color SWAMP = new Color(112, 84, 62, 196);
+  public static final Color GRASS = new Color(238,225,49, 196);
+  public static final Color HILLS = new Color(79,162,94, 196);
+  public static final Color MOUNTAIN = new Color(166,211,174, 196);
+  public static final Color PEEKS = new Color(234,235,236, 196);
   public static final Color STROKE_COLOR = new Color(20, 21, 22);
   public static final Color HIGHLIGHT_COLOR = new Color(248, 248, 248);
   public static final Color TRANSLUCENT = new Color(0, 0, 0, 0);
   private static final float GRID_STROKE_WIDTH = 1F;
   private static final float HIGHLIGHT_STROKE_WIDTH = 4F;
-
-
-  private static Stroke getStroke(float width) {
-    return new BasicStroke(width, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL);
-  }
 
   public static Blueprint highlight(Shape shape) {
     return Blueprint.builder()
@@ -39,6 +34,10 @@ public class Blueprints {
                     .strokeColor(HIGHLIGHT_COLOR)
                     .fillColor(TRANSLUCENT)
                     .build();
+  }
+
+  private static Stroke getStroke(float width) {
+    return new BasicStroke(width, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL);
   }
 
   public static Blueprint grid(int size) {
@@ -58,7 +57,7 @@ public class Blueprints {
       case 2 -> basic.fillColor(SHALLOW);
       case 3 -> basic.fillColor(SWAMP);
       case 4 -> basic.fillColor(GRASS);
-      case 5 -> basic.fillColor(FOREST);
+      case 5 -> basic.fillColor(HILLS);
       case 6 -> basic.fillColor(MOUNTAIN);
       case 7 -> basic.fillColor(PEEKS);
       default -> basic.fillColor(TRANSLUCENT);
