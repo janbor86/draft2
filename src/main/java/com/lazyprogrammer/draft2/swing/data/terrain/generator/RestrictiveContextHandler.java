@@ -19,7 +19,7 @@ public class RestrictiveContextHandler implements WaveFunctionContextHandler {
             TerrainType.OCEAN,
             List.of(TerrainType.OCEAN, TerrainType.SEA, TerrainType.ISLANDS),
             TerrainType.SEA,
-            List.of(TerrainType.OCEAN, TerrainType.SEA, TerrainType.ISLANDS, TerrainType.PLAINS),
+            List.of(TerrainType.SEA, TerrainType.ISLANDS),
             TerrainType.ISLANDS,
             List.of(TerrainType.OCEAN, TerrainType.SEA),
             TerrainType.WETLAND,
@@ -31,7 +31,27 @@ public class RestrictiveContextHandler implements WaveFunctionContextHandler {
             TerrainType.MOUNTAINS,
             List.of(TerrainType.HILLS, TerrainType.MOUNTAINS, TerrainType.MOUNTAIN_RANGE),
             TerrainType.MOUNTAIN_RANGE,
-            List.of(TerrainType.MOUNTAINS, TerrainType.MOUNTAIN_RANGE));
+            List.of(TerrainType.OCEAN, TerrainType.MOUNTAINS, TerrainType.MOUNTAIN_RANGE));
+  }
+
+  private Map<TerrainType, List<TerrainType>> getPermissiveRules() {
+    return Map.of(
+        TerrainType.OCEAN,
+        List.of(TerrainType.OCEAN, TerrainType.SEA, TerrainType.ISLANDS),
+        TerrainType.SEA,
+        List.of(TerrainType.OCEAN, TerrainType.SEA, TerrainType.ISLANDS, TerrainType.PLAINS),
+        TerrainType.ISLANDS,
+        List.of(TerrainType.OCEAN, TerrainType.SEA),
+        TerrainType.WETLAND,
+        List.of(TerrainType.WETLAND, TerrainType.PLAINS),
+        TerrainType.PLAINS,
+        List.of(TerrainType.SEA, TerrainType.WETLAND, TerrainType.PLAINS, TerrainType.HILLS),
+        TerrainType.HILLS,
+        List.of(TerrainType.PLAINS, TerrainType.HILLS, TerrainType.MOUNTAINS),
+        TerrainType.MOUNTAINS,
+        List.of(TerrainType.HILLS, TerrainType.MOUNTAINS, TerrainType.MOUNTAIN_RANGE),
+        TerrainType.MOUNTAIN_RANGE,
+        List.of(TerrainType.MOUNTAINS, TerrainType.MOUNTAIN_RANGE));
   }
 
   @Override

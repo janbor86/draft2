@@ -3,20 +3,18 @@ package com.lazyprogrammer.draft2.configuration;
 import com.lazyprogrammer.draft2.swing.data.GameMap;
 import com.lazyprogrammer.draft2.swing.data.terrain.*;
 import com.lazyprogrammer.draft2.swing.data.terrain.generator.MapFillingStrategy;
-import com.lazyprogrammer.draft2.swing.data.terrain.generator.OkayFiller;
-import com.lazyprogrammer.draft2.swing.data.terrain.generator.PermissiveContextHandler;
+import com.lazyprogrammer.draft2.swing.data.terrain.generator.RandomNeighborFiller;
+import com.lazyprogrammer.draft2.swing.data.terrain.generator.RestrictiveContextHandler;
 import com.lazyprogrammer.draft2.swing.data.terrain.generator.TerrainGenerator;
 import com.lazyprogrammer.draft2.swing.data.terrain.generator.WaveFunctionCatalyst;
 import com.lazyprogrammer.draft2.swing.data.terrain.generator.WaveFunctionContextHandler;
 import com.lazyprogrammer.draft2.swing.map.MapConfig;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.IntStream;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DataConfiguration {
@@ -37,8 +35,8 @@ public class DataConfiguration {
   }
 
   @Bean
-  MapFillingStrategy mapFillingStrategy(MapConfig mapConfig) {
-    return new OkayFiller(mapConfig, new Random());
+  MapFillingStrategy mapFillingStrategy(TerrainRepository repository) {
+    return new RandomNeighborFiller(repository, new Random());
   }
 
   @Bean
@@ -53,11 +51,11 @@ public class DataConfiguration {
     final var columnNo = mapConfig.columnNo();
     final var rowNo = mapConfig.rowNo();
     final var allTile = columnNo * rowNo;
-    probabilities.put(TerrainType.OCEAN, 35 * allTile / 100);
-    probabilities.put(TerrainType.SEA, 25 * allTile / 100);
-    probabilities.put(TerrainType.ISLANDS, 3 * allTile / 100);
+    probabilities.put(TerrainType.OCEAN, 40 * allTile / 100);
+    probabilities.put(TerrainType.SEA, 20 * allTile / 100);
+    probabilities.put(TerrainType.ISLANDS, 4 * allTile / 100);
     probabilities.put(TerrainType.WETLAND, 3 * allTile / 100);
-    probabilities.put(TerrainType.PLAINS, 16 * allTile / 100);
+    probabilities.put(TerrainType.PLAINS, 15 * allTile / 100);
     probabilities.put(TerrainType.HILLS, 9 * allTile / 100);
     probabilities.put(TerrainType.MOUNTAINS, 6 * allTile / 100);
     probabilities.put(TerrainType.MOUNTAIN_RANGE, 3 * allTile / 100);
@@ -69,26 +67,6 @@ public class DataConfiguration {
 
   @Bean
   WaveFunctionContextHandler waveFunctionContextHandler() {
-    return new PermissiveContextHandler(getPossibleNeighbors());
-  }
-
-  private Map<TerrainType, List<TerrainType>> getPossibleNeighbors() {
-    return Map.of(
-        TerrainType.OCEAN,
-        List.of(TerrainType.OCEAN, TerrainType.SEA, TerrainType.ISLANDS),
-        TerrainType.SEA,
-        List.of(TerrainType.SEA, TerrainType.ISLANDS, TerrainType.PLAINS),
-        TerrainType.ISLANDS,
-        List.of(TerrainType.OCEAN, TerrainType.SEA, TerrainType.HILLS),
-        TerrainType.WETLAND,
-        List.of(TerrainType.WETLAND),
-        TerrainType.PLAINS,
-        List.of(TerrainType.WETLAND, TerrainType.PLAINS, TerrainType.HILLS),
-        TerrainType.HILLS,
-        List.of(TerrainType.HILLS, TerrainType.MOUNTAINS),
-        TerrainType.MOUNTAINS,
-        List.of(TerrainType.MOUNTAINS, TerrainType.MOUNTAIN_RANGE),
-        TerrainType.MOUNTAIN_RANGE,
-        List.of(TerrainType.MOUNTAIN_RANGE));
+    return new RestrictiveContextHandler();
   }
 }
