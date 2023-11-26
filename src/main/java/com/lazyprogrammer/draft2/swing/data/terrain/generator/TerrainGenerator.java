@@ -1,6 +1,9 @@
-package com.lazyprogrammer.draft2.swing.data.terrain;
+package com.lazyprogrammer.draft2.swing.data.terrain.generator;
 
 import com.lazyprogrammer.draft2.swing.data.Coordinate;
+import com.lazyprogrammer.draft2.swing.data.terrain.Terrain;
+import com.lazyprogrammer.draft2.swing.data.terrain.TerrainRepository;
+import com.lazyprogrammer.draft2.swing.data.terrain.TerrainType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,13 +21,10 @@ public class TerrainGenerator {
 
   public List<Coordinate> generate(int steps) {
     if (steps < 1) {
-      return Collections.EMPTY_LIST;
+      return Collections.emptyList();
     }
     List<Coordinate> allUndefined = new ArrayList<>(repository.findAll(TerrainType.UNDEFINED));
-    var counter = steps;
-    if (steps > allUndefined.size()) {
-      counter = allUndefined.size();
-    }
+    var counter = Math.min(steps, allUndefined.size());
     List<Coordinate> generatedTiles = new ArrayList<>();
     while (counter-- > 0) {
       var next = mapFillingStrategy.next(allUndefined);

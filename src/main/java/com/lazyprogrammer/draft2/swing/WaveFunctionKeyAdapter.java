@@ -1,15 +1,11 @@
 package com.lazyprogrammer.draft2.swing;
 
 import com.lazyprogrammer.draft2.swing.data.Coordinate;
-import com.lazyprogrammer.draft2.swing.data.terrain.TerrainGenerator;
 import com.lazyprogrammer.draft2.swing.data.terrain.TerrainRepository;
-import com.lazyprogrammer.draft2.swing.data.terrain.TerrainType;
+import com.lazyprogrammer.draft2.swing.data.terrain.generator.TerrainGenerator;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,7 +24,7 @@ public class WaveFunctionKeyAdapter extends KeyAdapter {
     if (KeyEvent.VK_SPACE == e.getKeyCode()) rounds = repository.findAll().size();
     if (rounds < 1) return;
     List<Coordinate> generated = generator.generate(rounds);
-    if (generated.size() < 1) return;
+    if (generated.isEmpty()) return;
     mapComponent.getMapView().focusTo(generated.get(generated.size() - 1));
     mapComponent.repaint();
   }

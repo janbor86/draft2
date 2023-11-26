@@ -1,6 +1,6 @@
 package com.lazyprogrammer.draft2.swing;
 
-import com.lazyprogrammer.draft2.swing.data.terrain.TerrainGenerator;
+import com.lazyprogrammer.draft2.swing.data.terrain.generator.TerrainGenerator;
 import lombok.RequiredArgsConstructor;
 
 import java.awt.event.MouseAdapter;

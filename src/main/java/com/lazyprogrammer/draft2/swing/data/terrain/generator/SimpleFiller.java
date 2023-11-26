@@ -1,4 +1,4 @@
-package com.lazyprogrammer.draft2.swing.data.terrain;
+package com.lazyprogrammer.draft2.swing.data.terrain.generator;
 
 import com.lazyprogrammer.draft2.swing.data.Coordinate;
 

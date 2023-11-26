@@ -2,6 +2,12 @@ package com.lazyprogrammer.draft2.configuration;
 
 import com.lazyprogrammer.draft2.swing.data.GameMap;
 import com.lazyprogrammer.draft2.swing.data.terrain.*;
+import com.lazyprogrammer.draft2.swing.data.terrain.generator.MapFillingStrategy;
+import com.lazyprogrammer.draft2.swing.data.terrain.generator.OkayFiller;
+import com.lazyprogrammer.draft2.swing.data.terrain.generator.PermissiveContextHandler;
+import com.lazyprogrammer.draft2.swing.data.terrain.generator.TerrainGenerator;
+import com.lazyprogrammer.draft2.swing.data.terrain.generator.WaveFunctionCatalyst;
+import com.lazyprogrammer.draft2.swing.data.terrain.generator.WaveFunctionContextHandler;
 import com.lazyprogrammer.draft2.swing.map.MapConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -9,7 +9,7 @@ import com.lazyprogrammer.draft2.swing.WaveFunctionAdapter;
 import com.lazyprogrammer.draft2.swing.WaveFunctionKeyAdapter;
 import com.lazyprogrammer.draft2.swing.blueprint.Blueprints;
 import com.lazyprogrammer.draft2.swing.data.GameMap;
-import com.lazyprogrammer.draft2.swing.data.terrain.TerrainGenerator;
+import com.lazyprogrammer.draft2.swing.data.terrain.generator.TerrainGenerator;
 import com.lazyprogrammer.draft2.swing.data.terrain.TerrainRepository;
 import com.lazyprogrammer.draft2.swing.graphics.Drawer;
 import com.lazyprogrammer.draft2.swing.graphics.Painter;

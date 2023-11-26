@@ -1,4 +1,6 @@
-package com.lazyprogrammer.draft2.swing.data.terrain;
+package com.lazyprogrammer.draft2.swing.data.terrain.generator;
+
+import com.lazyprogrammer.draft2.swing.data.terrain.TerrainType;
 
 import java.util.List;
 import java.util.Map;

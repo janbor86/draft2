@@ -1,8 +1,12 @@
-package com.lazyprogrammer.draft2.swing.data.terrain;
+package com.lazyprogrammer.draft2.swing.data.terrain.generator;
 
-import java.util.*;
-
+import com.lazyprogrammer.draft2.swing.data.terrain.TerrainType;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public class RestrictiveContextHandler implements WaveFunctionContextHandler {
@@ -41,11 +45,7 @@ public class RestrictiveContextHandler implements WaveFunctionContextHandler {
         allowedNeighbors.addAll(possibilities);
         continue;
       }
-      Iterator<TerrainType> iterator = allowedNeighbors.iterator();
-      while (iterator.hasNext()) {
-        TerrainType type = iterator.next();
-        if (!possibilities.contains(type)) iterator.remove();
-      }
+      allowedNeighbors.removeIf(type -> !possibilities.contains(type));
     }
     log.info("allowed neighbors: {}", allowedNeighbors);
     final Map<TerrainType, Integer> probabilitiesBasedOnContext = new HashMap<>();

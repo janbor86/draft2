@@ -1,5 +1,6 @@
-package com.lazyprogrammer.draft2.swing.data.terrain;
+package com.lazyprogrammer.draft2.swing.data.terrain.generator;
 
+import com.lazyprogrammer.draft2.swing.data.terrain.TerrainType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
