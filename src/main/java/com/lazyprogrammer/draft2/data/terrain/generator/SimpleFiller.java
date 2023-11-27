@@ -1,0 +1,12 @@
+package com.lazyprogrammer.draft2.data.terrain.generator;
+
+import com.lazyprogrammer.draft2.data.Coordinate;
+
+import java.util.List;
+
+public class SimpleFiller implements MapFillingStrategy {
+  @Override
+  public Coordinate next(List<Coordinate> allUndefined) {
+    return allUndefined.get(0);
+  }
+}
