@@ -2,6 +2,7 @@ package com.lazyprogrammer.draft2.ui.swing.map;
 
 import com.lazyprogrammer.draft2.data.Coordinate;
 import com.lazyprogrammer.draft2.ui.swing.graphics.Painter;
+import com.lazyprogrammer.draft2.ui.swing.graphics.PaintingConfiguration;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -22,6 +23,7 @@ public class HexMapComponent extends JComponent {
   @ToString.Exclude private final Set<Coordinate> validCoordinates;
   private final MapView mapView;
   private final List<Painter> painters;
+  private final PaintingConfiguration paintingConfiguration;
 
   @Override
   protected void paintComponent(Graphics graphics) {
@@ -30,7 +32,8 @@ public class HexMapComponent extends JComponent {
     final var g2d = (Graphics2D) graphics;
     g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
-    painters.forEach(painter -> painter.paint(g2d, mapView, validCoordinates));
+    paintingConfiguration.setGraphics2D(g2d);
+    painters.forEach(painter -> painter.paint(paintingConfiguration, mapView, validCoordinates));
   }
 
   public void pan(int dx, int dy) {

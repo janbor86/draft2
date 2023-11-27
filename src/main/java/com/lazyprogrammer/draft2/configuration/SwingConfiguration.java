@@ -7,8 +7,10 @@ import com.lazyprogrammer.draft2.ui.swing.InfoLayerUI;
 import com.lazyprogrammer.draft2.ui.swing.MainPanel;
 import com.lazyprogrammer.draft2.ui.swing.graphics.Drawer;
 import com.lazyprogrammer.draft2.ui.swing.graphics.Painter;
+import com.lazyprogrammer.draft2.ui.swing.graphics.PaintingConfiguration;
 import com.lazyprogrammer.draft2.ui.swing.map.HexMapComponent;
 import com.lazyprogrammer.draft2.ui.swing.map.MapMouseAdapter;
+import com.lazyprogrammer.draft2.ui.swing.map.MapPaintKeyAdapter;
 import com.lazyprogrammer.draft2.ui.swing.map.MapView;
 import com.lazyprogrammer.draft2.ui.swing.map.WaveFunctionAdapter;
 import com.lazyprogrammer.draft2.ui.swing.map.WaveFunctionKeyAdapter;
@@ -32,7 +34,9 @@ public class SwingConfiguration {
       List<Painter> painters,
       TerrainGenerator terrainGenerator,
       TerrainRepository terrainRepository) {
-    final var hexMapComponent = new HexMapComponent(gameMap.getCoordinates(), mapView, painters);
+    final var hexMapComponent =
+        new HexMapComponent(
+            gameMap.getCoordinates(), mapView, painters, new PaintingConfiguration());
     final var mapMouseAdapter = new MapMouseAdapter(hexMapComponent);
     hexMapComponent.addMouseAdapter(mapMouseAdapter);
     final var waveFunctionAdapter = new WaveFunctionAdapter(terrainGenerator, hexMapComponent);
@@ -41,6 +45,8 @@ public class SwingConfiguration {
     final var waveFunctionKeyAdapter =
         new WaveFunctionKeyAdapter(terrainRepository, terrainGenerator, hexMapComponent);
     hexMapComponent.addKeyListener(waveFunctionKeyAdapter);
+    final var mapPaintKeyAdapter = new MapPaintKeyAdapter(hexMapComponent);
+    hexMapComponent.addKeyListener(mapPaintKeyAdapter);
     return hexMapComponent;
   }
 
