@@ -26,16 +26,20 @@ public class RestrictiveContextHandler implements WaveFunctionContextHandler {
         TerrainType.ISLANDS,
         List.of(TerrainType.OCEAN, TerrainType.SEA),
         TerrainType.WETLAND,
-        List.of(TerrainType.WETLAND, TerrainType.PLAINS),
+        List.of(
+            TerrainType.SEA,
+            TerrainType.WETLAND,
+            TerrainType.WETLAND,
+            TerrainType.WETLAND,
+            TerrainType.PLAINS),
         TerrainType.PLAINS,
-        List.of(TerrainType.SEA, TerrainType.WETLAND, TerrainType.PLAINS, TerrainType.HILLS),
+        List.of(TerrainType.WETLAND, TerrainType.PLAINS, TerrainType.HILLS),
         TerrainType.HILLS,
-        List.of(TerrainType.PLAINS, TerrainType.HILLS, TerrainType.MOUNTAINS),
+        List.of(TerrainType.WETLAND, TerrainType.PLAINS, TerrainType.HILLS, TerrainType.MOUNTAINS),
         TerrainType.MOUNTAINS,
         List.of(TerrainType.HILLS, TerrainType.MOUNTAINS, TerrainType.MOUNTAIN_RANGE),
         TerrainType.MOUNTAIN_RANGE,
-        List.of(TerrainType.OCEAN, TerrainType.MOUNTAINS, TerrainType.MOUNTAIN_RANGE)
-    );
+        List.of(TerrainType.MOUNTAINS, TerrainType.MOUNTAIN_RANGE));
   }
 
   private Map<TerrainType, List<TerrainType>> fracturedContinent() {

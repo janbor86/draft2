@@ -2,6 +2,7 @@ package com.lazyprogrammer.draft2.data.terrain.generator;
 
 import com.lazyprogrammer.draft2.data.terrain.TerrainType;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
@@ -13,7 +14,7 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class WaveFunctionCatalyst {
 
-  private final Map<TerrainType, Integer> probabilities;
+  @Setter private Map<TerrainType, Integer> probabilities;
   private final Random random;
   private final WaveFunctionContextHandler contextHandler;
 

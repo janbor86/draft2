@@ -1,15 +1,16 @@
 package com.lazyprogrammer.draft2.data.terrain.generator;
 
+import com.lazyprogrammer.draft2.configuration.DataConfiguration;
 import com.lazyprogrammer.draft2.data.Coordinate;
+import com.lazyprogrammer.draft2.data.map.MapConfig;
 import com.lazyprogrammer.draft2.data.terrain.Terrain;
 import com.lazyprogrammer.draft2.data.terrain.TerrainRepository;
 import com.lazyprogrammer.draft2.data.terrain.TerrainType;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -33,6 +34,10 @@ public class TerrainGenerator {
       allUndefined.remove(next);
     }
     return generatedTiles;
+  }
+
+  public void reset(MapConfig mapConfig) {
+    wfc.setProbabilities(DataConfiguration.getProbabilities(mapConfig));
   }
 
   public void generateTerrainAt(Coordinate coordinate) {

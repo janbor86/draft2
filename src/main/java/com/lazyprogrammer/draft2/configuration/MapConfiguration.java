@@ -21,7 +21,7 @@ public class MapConfiguration {
 
   @Bean
   MapConfig mapConfig() {
-    return new MapConfig(100, 66, 12);
+    return new MapConfig(100, 80, 5);
   }
 
   @Bean
@@ -55,5 +55,4 @@ public class MapConfiguration {
   Drawer drawer() {
     return new Drawer();
   }
-
 }

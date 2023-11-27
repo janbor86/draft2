@@ -1,7 +1,7 @@
 package com.lazyprogrammer.draft2.configuration;
 
-import com.lazyprogrammer.draft2.data.map.MapConfig;
 import com.lazyprogrammer.draft2.data.GameMap;
+import com.lazyprogrammer.draft2.data.map.MapConfig;
 import com.lazyprogrammer.draft2.data.terrain.TerrainRepository;
 import com.lazyprogrammer.draft2.data.terrain.TerrainType;
 import com.lazyprogrammer.draft2.data.terrain.generator.MapFillingStrategy;
@@ -43,22 +43,23 @@ public class DataConfiguration {
   @Bean
   WaveFunctionCatalyst waveFunctionCatalyst(
       MapConfig mapConfig, WaveFunctionContextHandler contextHandler) {
-    var probabilities = getProbabilities(mapConfig);
-    return new WaveFunctionCatalyst(probabilities, new Random(), contextHandler);
+    final var waveFunctionCatalyst = new WaveFunctionCatalyst(new Random(), contextHandler);
+    waveFunctionCatalyst.setProbabilities(getProbabilities(mapConfig));
+    return waveFunctionCatalyst;
   }
 
-  private Map<TerrainType, Integer> getProbabilities(MapConfig mapConfig) {
+  public static Map<TerrainType, Integer> getProbabilities(MapConfig mapConfig) {
     Map<TerrainType, Integer> probabilities = new HashMap<>();
     final var columnNo = mapConfig.columnNo();
     final var rowNo = mapConfig.rowNo();
     final var allTile = columnNo * rowNo;
-    probabilities.put(TerrainType.OCEAN, 40 * allTile / 100);
-    probabilities.put(TerrainType.SEA, 20 * allTile / 100);
-    probabilities.put(TerrainType.ISLANDS, 4 * allTile / 100);
-    probabilities.put(TerrainType.WETLAND, 3 * allTile / 100);
-    probabilities.put(TerrainType.PLAINS, 16 * allTile / 100);
+    probabilities.put(TerrainType.OCEAN, 46 * allTile / 100);
+    probabilities.put(TerrainType.SEA, 18 * allTile / 100);
+    probabilities.put(TerrainType.ISLANDS, 2 * allTile / 100);
+    probabilities.put(TerrainType.WETLAND, 4 * allTile / 100);
+    probabilities.put(TerrainType.PLAINS, 14 * allTile / 100);
     probabilities.put(TerrainType.HILLS, 9 * allTile / 100);
-    probabilities.put(TerrainType.MOUNTAINS, 6 * allTile / 100);
+    probabilities.put(TerrainType.MOUNTAINS,5  * allTile / 100);
     probabilities.put(TerrainType.MOUNTAIN_RANGE, 2 * allTile / 100);
     final var assigned = probabilities.values().stream().flatMapToInt(IntStream::of).sum();
     probabilities.put(

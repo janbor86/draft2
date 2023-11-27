@@ -46,7 +46,7 @@ public class HexMapComponent extends JComponent {
     repaint();
   }
 
-  public void zoomAt(Coordinate focusedTile, int wheelRotation) {
+  public void zoomAt(int wheelRotation) {
     mapView.changeZoomLevel(-wheelRotation);
     repaint();
   }

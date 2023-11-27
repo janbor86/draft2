@@ -103,16 +103,15 @@ public class MapView {
 
   public void changeZoomLevel(int delta) {
     final var oldValue = getZoomLevel();
-    final var newValue = getZoomLevel() + delta * oldValue / 10;
-    if (newValue > 100) return;
+    final var magnitude = Math.max(oldValue / 10, 1);
+    final var newValue = getZoomLevel() + delta * magnitude;
     final var focus = findAt(new Point(viewBoundary.width / 2, viewBoundary.height / 2));
+    //    if (delta > 0 && newValue < 100) mapConfig.setGridSize(newValue);
+    //    if (delta < 0
+    //        && mapConfig.width() >= viewBoundary.width
+    //        && mapConfig.height() >= viewBoundary.height) mapConfig.setGridSize(newValue);
+    if (newValue < 1 || newValue > 100) return;
     mapConfig.setGridSize(newValue);
-    log.debug(" map size: {}x{}", mapConfig.width(), mapConfig.height());
-    log.debug(" view size: {}x{}", viewBoundary.width, viewBoundary.height);
-    if (mapConfig.width() < viewBoundary.width || mapConfig.height() < viewBoundary.height) {
-      mapConfig.setGridSize(oldValue);
-      return;
-    }
     focusTo(focus);
   }
 }
