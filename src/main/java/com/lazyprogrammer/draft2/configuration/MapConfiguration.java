@@ -23,7 +23,7 @@ public class MapConfiguration {
 
   @Bean
   MapConfig mapConfig() {
-    return new MapConfig(22, 22, Hex.sizeOf(34));
+    return new MapConfig(160, 90, Hex.sizeOf(8));
   }
 
   @Bean
