@@ -41,11 +41,12 @@ public class MapView {
   }
 
   private void correctLocation() {
-    var minimumX = 6 * viewBoundary.width / 7 - mapConfig.width();
-    var minimumY = 4 * viewBoundary.height / 5 - mapConfig.height();
-    var x = Math.min(viewBoundary.width / 7, Math.max(minimumX, getLocation().x));
-    var y = Math.min(viewBoundary.height / 5, Math.max(minimumY, getLocation().y));
+    var minimumX = viewBoundary.width / 7 - mapConfig.width();
+    var minimumY = viewBoundary.height / 5 - mapConfig.height();
+    var x = Math.min(6 * viewBoundary.width / 7, Math.max(minimumX, getLocation().x));
+    var y = Math.min(4 * viewBoundary.height / 5, Math.max(minimumY, getLocation().y));
     viewBoundary.setLocation(new Point(x, y));
+    log.info("map view location: {}", getLocation());
   }
 
   public Point getLocation() {
@@ -53,7 +54,7 @@ public class MapView {
   }
 
   public Coordinate findAt(Point at) {
-    log.trace("search at {}", at);
+    log.debug("search at {}", at);
     final var location = getLocation();
     log.trace("TL:{}", location);
     var dx = at.x - location.x;
@@ -67,7 +68,7 @@ public class MapView {
     int y = dy / mapConfig.verticalSpacing();
     x = Math.min(mapConfig.columnNo() - 1, Math.max(0, x));
     y = Math.min(mapConfig.rowNo() - 1, Math.max(0, y));
-    log.trace("is it {}:{}", x, y);
+    log.debug("it is {}:{}", x, y);
     return new Coordinate(x, y);
   }
 
@@ -88,9 +89,9 @@ public class MapView {
   public void focusTo(Coordinate focus) {
     focused = focus;
     final var mapLocation = calculateLocationOnMap(focus);
-    log.trace("focus to {} at {}", mapLocation, focus);
-    final var horizontalOffset = viewBoundary.width / 2;
-    final var verticalOffset = viewBoundary.height / 2;
+    log.debug("focus to {} at {}", mapLocation, focus);
+    final var horizontalOffset = viewBoundary.width / 2 - mapConfig.horizontalSpacing() / 2;
+    final var verticalOffset = viewBoundary.height / 2 - mapConfig.verticalSpacing() / 2;
     setView(-mapLocation.x + horizontalOffset, -mapLocation.y + verticalOffset);
   }
 
@@ -98,6 +99,20 @@ public class MapView {
     log.trace("set view: {}x{}", x, y);
     viewBoundary.setLocation(new Point(x, y));
     correctLocation();
-    log.info("{}", getLocation());
+  }
+
+  public void changeZoomLevel(int delta) {
+    final var oldValue = getZoomLevel();
+    final var newValue = getZoomLevel() + delta * oldValue / 10;
+    if (newValue > 100) return;
+    final var focus = findAt(new Point(viewBoundary.width / 2, viewBoundary.height / 2));
+    mapConfig.setGridSize(newValue);
+    log.debug(" map size: {}x{}", mapConfig.width(), mapConfig.height());
+    log.debug(" view size: {}x{}", viewBoundary.width, viewBoundary.height);
+    if (mapConfig.width() < viewBoundary.width || mapConfig.height() < viewBoundary.height) {
+      mapConfig.setGridSize(oldValue);
+      return;
+    }
+    focusTo(focus);
   }
 }

@@ -1,19 +1,17 @@
 package com.lazyprogrammer.draft2.ui.swing.map;
 
-
 import com.lazyprogrammer.draft2.data.Coordinate;
 import com.lazyprogrammer.draft2.ui.swing.graphics.Painter;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
-
-import javax.swing.JComponent;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.List;
 import java.util.Set;
+import javax.swing.JComponent;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @ToString
@@ -21,8 +19,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class HexMapComponent extends JComponent {
 
-  @ToString.Exclude
-  private final Set<Coordinate> validCoordinates;
+  @ToString.Exclude private final Set<Coordinate> validCoordinates;
   private final MapView mapView;
   private final List<Painter> painters;
 
@@ -36,7 +33,6 @@ public class HexMapComponent extends JComponent {
     painters.forEach(painter -> painter.paint(g2d, mapView, validCoordinates));
   }
 
-
   public void pan(int dx, int dy) {
     mapView.translateView(dx, dy);
     repaint();
@@ -47,6 +43,14 @@ public class HexMapComponent extends JComponent {
     repaint();
   }
 
+  public void zoomAt(Coordinate focusedTile, int wheelRotation) {
+    mapView.changeZoomLevel(-wheelRotation);
+    repaint();
+  }
+
+  public void addMouseAdapter(MapMouseAdapter mapMouseAdapter) {
+    addMouseListener(mapMouseAdapter);
+    addMouseMotionListener(mapMouseAdapter);
+    addMouseWheelListener(mapMouseAdapter);
+  }
 }
-
-

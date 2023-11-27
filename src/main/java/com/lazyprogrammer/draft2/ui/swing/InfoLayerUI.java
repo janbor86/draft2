@@ -2,7 +2,11 @@ package com.lazyprogrammer.draft2.ui.swing;
 
 import com.lazyprogrammer.draft2.data.Coordinate;
 import com.lazyprogrammer.draft2.data.terrain.TerrainRepository;
+import com.lazyprogrammer.draft2.ui.swing.blueprint.Blueprints;
+import com.lazyprogrammer.draft2.ui.swing.blueprint.Hex;
+import com.lazyprogrammer.draft2.ui.swing.graphics.Drawer;
 import com.lazyprogrammer.draft2.ui.swing.map.HexMapComponent;
+import com.lazyprogrammer.draft2.ui.swing.map.MapView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,6 +20,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
 
 @Slf4j
@@ -25,12 +30,14 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
   private static final int TEXT_OFFSET = 24;
   private static final Color INFO_AREA_COLOR = new Color(0, 0, 0, 64);
 
-  String info = "";
+  private final MapView mapView;
+  private final Drawer drawer;
+  private final TerrainRepository terrainRepository;
+
+  String tileInfo = "";
   Coordinate coordinate;
 
-  private final HexMapComponent mapComponent;
-  private final BufferedImage highlightShape;
-  private final TerrainRepository terrainRepository;
+  String zoomInfo = "";
 
   @Override
   public void paint(Graphics g, JComponent component) {
@@ -42,13 +49,18 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
       paintHighlightShape(g2d);
       paintInfoText(g2d, infoArea, 1, "[x=" + coordinate.x() + ",y=" + coordinate.y() + "]");
     }
-    paintInfoText(g2d, infoArea, 2, info);
+    paintInfoText(g2d, infoArea, 2, tileInfo);
+    zoomInfo = String.valueOf(mapView.getZoomLevel());
+    paintInfoText(g2d, infoArea, 3, zoomInfo);
   }
 
   private void paintHighlightShape(Graphics2D g2d) {
-    final var center = mapComponent.getMapView()
-                                   .calculateCenter(coordinate);
-    g2d.drawImage(highlightShape, center.x, center.y, null);
+    final var center = mapView.calculateCenter(coordinate);
+    g2d.drawImage(highlightImage(), center.x, center.y, null);
+  }
+
+  BufferedImage highlightImage() {
+    return drawer.drawHex(Blueprints.highlight(Hex.sizeOf(mapView.getZoomLevel())));
   }
 
   private void paintInfoText(Graphics2D g2d, Rectangle infoArea, int lineNo, String info) {
@@ -73,27 +85,29 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
   public void installUI(JComponent c) {
     super.installUI(c);
     var l = (JLayer<?>) c;
-    l.setLayerEventMask(AWTEvent.MOUSE_MOTION_EVENT_MASK | AWTEvent.KEY_EVENT_MASK);
+    l.setLayerEventMask(
+        AWTEvent.MOUSE_MOTION_EVENT_MASK
+            | AWTEvent.KEY_EVENT_MASK
+            | AWTEvent.MOUSE_WHEEL_EVENT_MASK);
   }
-
 
   @Override
   protected void processMouseMotionEvent(MouseEvent e, JLayer<? extends HexMapComponent> l) {
     log.trace("mouseMotion: {}", e);
-    coordinate = mapComponent.getMapView()
-                             .findAt(e.getPoint());
-    info = terrainRepository.findTerrain(coordinate)
-                            .name();
-    mapComponent.repaint();
+    coordinate = mapView.findAt(e.getPoint());
+    tileInfo = terrainRepository.findTerrain(coordinate).name();
+    l.repaint();
   }
 
   @Override
   protected void processKeyEvent(KeyEvent e, JLayer<? extends HexMapComponent> l) {
-    final var mapView = mapComponent.getMapView();
     coordinate = mapView.getFocused();
-    if (coordinate != null)
-      info = terrainRepository.findTerrain(coordinate)
-                              .name();
-    mapComponent.repaint();
+    if (coordinate != null) tileInfo = terrainRepository.findTerrain(coordinate).name();
+    l.repaint();
+  }
+
+  @Override
+  protected void processMouseWheelEvent(MouseWheelEvent e, JLayer<? extends HexMapComponent> l) {
+    l.repaint();
   }
 }

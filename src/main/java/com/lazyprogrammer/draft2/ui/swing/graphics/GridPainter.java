@@ -18,17 +18,12 @@ public class GridPainter implements Painter {
 
   @Override
   public void paint(Graphics2D graphics2D, MapView view, Set<Coordinate> coordinates) {
-    checkBlueprint(view.getZoomLevel());
-    coordinates.forEach(coordinate -> {
-      final var onScreenLocation = view.calculateCenter(coordinate);
-      final var gridImage = drawer.drawHex(grid);
-      graphics2D.drawImage(gridImage, onScreenLocation.x, onScreenLocation.y, null);
-    });
+    grid = Blueprints.grid(view.getZoomLevel());
+    coordinates.forEach(
+        coordinate -> {
+          final var onScreenLocation = view.calculateCenter(coordinate);
+          final var gridImage = drawer.drawHex(grid);
+          graphics2D.drawImage(gridImage, onScreenLocation.x, onScreenLocation.y, null);
+        });
   }
-
-  private void checkBlueprint(final int size) {
-    if (grid == null)
-      grid = Blueprints.grid(size);
-  }
-
 }
