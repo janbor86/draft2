@@ -1,29 +1,27 @@
 package com.lazyprogrammer.draft2.configuration;
 
-import com.lazyprogrammer.draft2.ui.swing.Hex;
-import com.lazyprogrammer.draft2.ui.swing.blueprint.BlueprintMap;
 import com.lazyprogrammer.draft2.data.GameMap;
+import com.lazyprogrammer.draft2.data.map.MapConfig;
+import com.lazyprogrammer.draft2.data.map.MapGenerator;
+import com.lazyprogrammer.draft2.data.map.WfcMapGenerator;
 import com.lazyprogrammer.draft2.data.terrain.TerrainRepository;
+import com.lazyprogrammer.draft2.ui.swing.blueprint.BlueprintMap;
 import com.lazyprogrammer.draft2.ui.swing.graphics.Drawer;
 import com.lazyprogrammer.draft2.ui.swing.graphics.GridPainter;
 import com.lazyprogrammer.draft2.ui.swing.graphics.Painter;
 import com.lazyprogrammer.draft2.ui.swing.graphics.TilePainter;
-import com.lazyprogrammer.draft2.data.map.MapConfig;
-import com.lazyprogrammer.draft2.data.map.MapGenerator;
-import com.lazyprogrammer.draft2.data.map.MapView;
-import com.lazyprogrammer.draft2.data.map.WfcMapGenerator;
+import com.lazyprogrammer.draft2.ui.swing.map.MapView;
+import java.util.HashMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-
-import java.util.HashMap;
 
 @Configuration
 public class MapConfiguration {
 
   @Bean
   MapConfig mapConfig() {
-    return new MapConfig(100, 66, Hex.sizeOf(12));
+    return new MapConfig(100, 66, 12);
   }
 
   @Bean

@@ -1,6 +1,7 @@
-package com.lazyprogrammer.draft2.ui.swing;
+package com.lazyprogrammer.draft2.ui.swing.map;
 
 import com.lazyprogrammer.draft2.data.terrain.generator.TerrainGenerator;
+import com.lazyprogrammer.draft2.ui.swing.map.HexMapComponent;
 import lombok.RequiredArgsConstructor;
 
 import java.awt.event.MouseAdapter;

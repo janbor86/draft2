@@ -1,9 +1,8 @@
-package com.lazyprogrammer.draft2.ui.swing;
+package com.lazyprogrammer.draft2.ui.swing.map;
 
 
 import com.lazyprogrammer.draft2.data.Coordinate;
 import com.lazyprogrammer.draft2.ui.swing.graphics.Painter;
-import com.lazyprogrammer.draft2.data.map.MapView;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;

@@ -1,15 +1,15 @@
 package com.lazyprogrammer.draft2.data.map;
 
-import com.lazyprogrammer.draft2.ui.swing.Hex;
+import com.lazyprogrammer.draft2.ui.swing.blueprint.MathConst;
 
-public record MapConfig(int columnNo, int rowNo, Hex hex) {
+public record MapConfig(int columnNo, int rowNo, int gridSize) {
 
   public int hexHeight() {
-    return (int) hex.getHeight();
+    return (int) (gridSize * MathConst.SQRT3);
   }
 
   public int hexWidth() {
-    return (int) hex.getWidth();
+    return gridSize * 2;
   }
 
   public int verticalSpacing() {
@@ -17,7 +17,7 @@ public record MapConfig(int columnNo, int rowNo, Hex hex) {
   }
 
   public int horizontalSpacing() {
-    return (int) (hex.getWidth() * 0.75D);
+    return (int) (hexWidth() * 0.75D);
   }
 
   public int width() {
@@ -28,8 +28,17 @@ public record MapConfig(int columnNo, int rowNo, Hex hex) {
     return verticalSpacing() * rowNo;
   }
 
-  public int hexSize() {
-    return hex.getSize();
+  @Override
+  public String toString() {
+    return "MapConfig["
+        + "columnNo="
+        + columnNo
+        + ", "
+        + "rowNo="
+        + rowNo
+        + ", "
+        + "gridSize="
+        + gridSize
+        + ']';
   }
-
 }

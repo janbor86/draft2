@@ -1,19 +1,19 @@
 package com.lazyprogrammer.draft2.configuration;
 
-import com.lazyprogrammer.draft2.ui.swing.Hex;
-import com.lazyprogrammer.draft2.ui.swing.HexMapComponent;
+import com.lazyprogrammer.draft2.ui.swing.blueprint.Hex;
+import com.lazyprogrammer.draft2.ui.swing.map.HexMapComponent;
 import com.lazyprogrammer.draft2.ui.swing.InfoLayerUI;
 import com.lazyprogrammer.draft2.ui.swing.MainPanel;
-import com.lazyprogrammer.draft2.ui.swing.MapMouseAdapter;
-import com.lazyprogrammer.draft2.ui.swing.WaveFunctionAdapter;
-import com.lazyprogrammer.draft2.ui.swing.WaveFunctionKeyAdapter;
+import com.lazyprogrammer.draft2.ui.swing.map.MapMouseAdapter;
+import com.lazyprogrammer.draft2.ui.swing.map.WaveFunctionAdapter;
+import com.lazyprogrammer.draft2.ui.swing.map.WaveFunctionKeyAdapter;
 import com.lazyprogrammer.draft2.ui.swing.blueprint.Blueprints;
 import com.lazyprogrammer.draft2.data.GameMap;
 import com.lazyprogrammer.draft2.data.terrain.generator.TerrainGenerator;
 import com.lazyprogrammer.draft2.data.terrain.TerrainRepository;
 import com.lazyprogrammer.draft2.ui.swing.graphics.Drawer;
 import com.lazyprogrammer.draft2.ui.swing.graphics.Painter;
-import com.lazyprogrammer.draft2.data.map.MapView;
+import com.lazyprogrammer.draft2.ui.swing.map.MapView;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

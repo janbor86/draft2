@@ -1,6 +1,7 @@
-package com.lazyprogrammer.draft2.data.map;
+package com.lazyprogrammer.draft2.ui.swing.map;
 
 import com.lazyprogrammer.draft2.data.Coordinate;
+import com.lazyprogrammer.draft2.data.map.MapConfig;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,7 @@ public class MapView {
   }
 
   public int getZoomLevel() {
-    return mapConfig.hexSize();
+    return mapConfig.gridSize();
   }
 
   public void resize(int width, int height) {

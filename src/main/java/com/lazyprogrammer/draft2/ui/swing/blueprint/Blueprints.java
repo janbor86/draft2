@@ -1,8 +1,6 @@
 package com.lazyprogrammer.draft2.ui.swing.blueprint;
 
 
-import com.lazyprogrammer.draft2.ui.swing.Hex;
-
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Polygon;

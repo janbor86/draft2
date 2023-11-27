@@ -1,5 +1,6 @@
 package com.lazyprogrammer.draft2.ui.swing;
 
+import com.lazyprogrammer.draft2.ui.swing.map.HexMapComponent;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.JLayer;

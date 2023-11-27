@@ -6,7 +6,7 @@ import com.lazyprogrammer.draft2.ui.swing.blueprint.Blueprints;
 import com.lazyprogrammer.draft2.data.Coordinate;
 import com.lazyprogrammer.draft2.data.terrain.TerrainRepository;
 import com.lazyprogrammer.draft2.data.terrain.TerrainType;
-import com.lazyprogrammer.draft2.data.map.MapView;
+import com.lazyprogrammer.draft2.ui.swing.map.MapView;
 import lombok.RequiredArgsConstructor;
 
 import java.awt.Graphics2D;
