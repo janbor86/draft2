@@ -110,7 +110,7 @@ public class MapView {
     //    if (delta < 0
     //        && mapConfig.width() >= viewBoundary.width
     //        && mapConfig.height() >= viewBoundary.height) mapConfig.setGridSize(newValue);
-    if (newValue < 1 || newValue > 100) return;
+    if (newValue < 1 || newValue > 1000) return;
     mapConfig.setGridSize(newValue);
     focusTo(focus);
   }

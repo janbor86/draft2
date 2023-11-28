@@ -4,6 +4,11 @@ import com.lazyprogrammer.draft2.data.Coordinate;
 import com.lazyprogrammer.draft2.ui.swing.blueprint.Blueprint;
 import com.lazyprogrammer.draft2.ui.swing.blueprint.Blueprints;
 import com.lazyprogrammer.draft2.ui.swing.map.MapView;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Point;
 import java.util.Set;
 
 public class GridPainter implements Painter {
@@ -32,9 +37,16 @@ public class GridPainter implements Painter {
         coordinate -> {
           final var onScreenLocation = view.calculateCenter(coordinate);
           final var gridImage = drawer.draw(grid);
+          //          drawFrame(configuration.getGraphics2D(), onScreenLocation, gridImage);
           configuration
               .getGraphics2D()
               .drawImage(gridImage, onScreenLocation.x, onScreenLocation.y, null);
         });
+  }
+
+  private void drawFrame(Graphics2D graphics2D, Point onScreenLocation, Image image) {
+    graphics2D.setColor(Color.BLUE);
+    graphics2D.drawRect(
+        onScreenLocation.x, onScreenLocation.y, image.getWidth(null), image.getHeight(null));
   }
 }

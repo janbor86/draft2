@@ -32,4 +32,11 @@ public class MapMouseAdapter extends MouseAdapter {
   public void mouseWheelMoved(MouseWheelEvent e) {
     gameMap.zoomAt(e.getWheelRotation());
   }
+
+  @Override
+  public void mouseClicked(MouseEvent e) {
+    final var clickedOn = gameMap.getMapView()
+                                 .findAt(e.getPoint());
+    gameMap.createPopAt(clickedOn);
+  }
 }

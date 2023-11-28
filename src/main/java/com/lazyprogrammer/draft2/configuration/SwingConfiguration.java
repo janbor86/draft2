@@ -17,6 +17,7 @@ import com.lazyprogrammer.draft2.ui.swing.map.WaveFunctionKeyAdapter;
 import java.util.List;
 import javax.swing.JLayer;
 import javax.swing.JPanel;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -33,10 +34,11 @@ public class SwingConfiguration {
       MapView mapView,
       List<Painter> painters,
       TerrainGenerator terrainGenerator,
-      TerrainRepository terrainRepository) {
+      TerrainRepository terrainRepository,
+      ApplicationEventPublisher publisher) {
     final var hexMapComponent =
         new HexMapComponent(
-            gameMap.getCoordinates(), mapView, painters, new PaintingConfiguration());
+            gameMap.getCoordinates(), mapView, painters, new PaintingConfiguration(), publisher);
     final var mapMouseAdapter = new MapMouseAdapter(hexMapComponent);
     hexMapComponent.addMouseAdapter(mapMouseAdapter);
     final var waveFunctionAdapter = new WaveFunctionAdapter(terrainGenerator, hexMapComponent);

@@ -32,6 +32,7 @@ public class DataConfiguration {
       MapFillingStrategy mapFillingStrategy) {
     final var terrainGenerator = new TerrainGenerator(wfc, terrainRepository, mapFillingStrategy);
     terrainGenerator.load();
+    terrainGenerator.generate();
     return terrainGenerator;
   }
 

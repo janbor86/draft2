@@ -60,4 +60,9 @@ public class TerrainGenerator {
     final var all = repository.findAll();
     all.values().stream().filter(Terrain::isDefined).map(Terrain::type).forEach(wfc::reduce);
   }
+
+  public void generate() {
+    final var numberOfMissingPieces = repository.findAll(TerrainType.UNDEFINED).size();
+    generate(numberOfMissingPieces);
+  }
 }

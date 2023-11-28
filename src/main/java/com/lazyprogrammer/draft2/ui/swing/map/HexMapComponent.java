@@ -1,5 +1,6 @@
 package com.lazyprogrammer.draft2.ui.swing.map;
 
+import com.lazyprogrammer.draft2.action.pop.PopCreatedEvent;
 import com.lazyprogrammer.draft2.data.Coordinate;
 import com.lazyprogrammer.draft2.ui.swing.graphics.Painter;
 import com.lazyprogrammer.draft2.ui.swing.graphics.PaintingConfiguration;
@@ -13,6 +14,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 
 @Slf4j
 @ToString
@@ -24,6 +26,7 @@ public class HexMapComponent extends JComponent {
   private final MapView mapView;
   private final List<Painter> painters;
   private final PaintingConfiguration paintingConfiguration;
+  private final ApplicationEventPublisher publisher;
 
   @Override
   protected void paintComponent(Graphics graphics) {
@@ -55,5 +58,9 @@ public class HexMapComponent extends JComponent {
     addMouseListener(mapMouseAdapter);
     addMouseMotionListener(mapMouseAdapter);
     addMouseWheelListener(mapMouseAdapter);
+  }
+
+  public void createPopAt(Coordinate clickedOn) {
+    publisher.publishEvent(new PopCreatedEvent(this, clickedOn));
   }
 }

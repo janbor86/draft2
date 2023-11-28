@@ -34,7 +34,7 @@ public class Drawer {
 
   private static BufferedImage drawShape(Blueprint blueprint) {
     final var shape = blueprint.shape();
-    final var image = new BufferedImage(shape.getBounds().width +10, shape.getBounds().height+10, BufferedImage.TYPE_INT_ARGB);
+    final var image = new BufferedImage(shape.getBounds().width, shape.getBounds().height, BufferedImage.TYPE_INT_ARGB);
     final var imageGraphic = prepareGraphics(image);
     if (blueprint.hasColor())
       fillShape(blueprint, imageGraphic, shape);
@@ -46,13 +46,11 @@ public class Drawer {
   private static void drawContour(Blueprint blueprint, Graphics2D imageGraphic, Shape shape) {
     imageGraphic.setColor(blueprint.strokeColor());
     imageGraphic.setStroke(blueprint.stroke());
-    imageGraphic.translate(5, 5);
     imageGraphic.draw(shape);
   }
 
   private static void fillShape(Blueprint blueprint, Graphics2D imageGraphic, Shape shape) {
     imageGraphic.setColor(blueprint.fillColor());
-    imageGraphic.translate(5, 5);
     imageGraphic.fill(shape);
   }
 
