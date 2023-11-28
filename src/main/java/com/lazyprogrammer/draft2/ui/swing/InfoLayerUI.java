@@ -54,13 +54,12 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
   private void paintHighlightShape(Graphics2D g2d) {
     final var mapConfig = mapView.getMapConfig();
     final var zoomRate = mapView.getZoomLevel() / 4;
-    final var diameter = mapConfig.hexHeight() - zoomRate;
+    final var size = mapConfig.hexHeight() - zoomRate;
+    final var highlight = drawer.draw(Blueprints.highlight(size, (float) zoomRate / 6F));
     final var center = mapView.calculateCenter(coordinate);
-    final var x = center.x + (mapConfig.hexWidth() - diameter) / 2;
-    final var y = center.y + (mapConfig.hexHeight() - diameter) / 2;
-    g2d.setColor(Blueprints.HIGHLIGHT_COLOR);
-    g2d.setStroke(Blueprints.getStroke((float) zoomRate / 6F));
-    g2d.drawOval(x, y, diameter, diameter);
+    final var x = center.x + (mapConfig.hexWidth() - size) / 2;
+    final var y = center.y + (mapConfig.hexHeight() - size) / 2;
+    g2d.drawImage(highlight, x, y, null);
   }
 
   private void paintInfoText(Graphics2D g2d, Rectangle infoArea, int lineNo, String info) {

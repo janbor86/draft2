@@ -25,7 +25,7 @@ public class TilePainter implements Painter {
         coordinate -> {
           var terrain = terrainRepository.findTerrain(coordinate);
           final var blueprint = getBluePrint(view.getZoomLevel(), terrain.type());
-          final var gridImage = drawer.drawHex(blueprint);
+          final var gridImage = drawer.draw(blueprint);
           final var onScreenLocation = view.calculateCenter(coordinate);
           configuration
               .getGraphics2D()

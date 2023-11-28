@@ -31,7 +31,7 @@ public class GridPainter implements Painter {
     coordinates.forEach(
         coordinate -> {
           final var onScreenLocation = view.calculateCenter(coordinate);
-          final var gridImage = drawer.drawHex(grid);
+          final var gridImage = drawer.draw(grid);
           configuration
               .getGraphics2D()
               .drawImage(gridImage, onScreenLocation.x, onScreenLocation.y, null);

@@ -3,14 +3,13 @@ package com.lazyprogrammer.draft2.ui.swing.graphics;
 
 import com.lazyprogrammer.draft2.ui.swing.blueprint.Blueprint;
 import com.lazyprogrammer.draft2.ui.swing.blueprint.Blueprints;
-import lombok.extern.slf4j.Slf4j;
-
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Drawer {
@@ -21,7 +20,7 @@ public class Drawer {
 
   Map<Blueprint, BufferedImage> images;
 
-  public BufferedImage drawHex(Blueprint blueprint) {
+  public BufferedImage draw(Blueprint blueprint) {
     return images.computeIfAbsent(blueprint, this::drawImage);
   }
 
@@ -35,7 +34,7 @@ public class Drawer {
 
   private static BufferedImage drawShape(Blueprint blueprint) {
     final var shape = blueprint.shape();
-    final var image = new BufferedImage(shape.getBounds().width, shape.getBounds().height, BufferedImage.TYPE_INT_ARGB);
+    final var image = new BufferedImage(shape.getBounds().width +10, shape.getBounds().height+10, BufferedImage.TYPE_INT_ARGB);
     final var imageGraphic = prepareGraphics(image);
     if (blueprint.hasColor())
       fillShape(blueprint, imageGraphic, shape);
@@ -47,11 +46,13 @@ public class Drawer {
   private static void drawContour(Blueprint blueprint, Graphics2D imageGraphic, Shape shape) {
     imageGraphic.setColor(blueprint.strokeColor());
     imageGraphic.setStroke(blueprint.stroke());
+    imageGraphic.translate(5, 5);
     imageGraphic.draw(shape);
   }
 
   private static void fillShape(Blueprint blueprint, Graphics2D imageGraphic, Shape shape) {
     imageGraphic.setColor(blueprint.fillColor());
+    imageGraphic.translate(5, 5);
     imageGraphic.fill(shape);
   }
 

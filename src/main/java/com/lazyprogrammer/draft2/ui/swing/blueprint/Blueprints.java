@@ -3,10 +3,10 @@ package com.lazyprogrammer.draft2.ui.swing.blueprint;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Polygon;
-import java.awt.Shape;
 import java.awt.Stroke;
 
 public class Blueprints {
+
   public static final Blueprint EMPTY = Blueprint.builder().shape(new Polygon()).build();
   public static final Color OCEAN = new Color(0, 78, 150);
   public static final Color SEA = new Color(58, 116, 200);
@@ -20,14 +20,12 @@ public class Blueprints {
   public static final Color HIGHLIGHT_COLOR = new Color(248, 248, 248);
   public static final Color TRANSLUCENT = new Color(0, 0, 0, 0);
   private static final float GRID_STROKE_WIDTH = 0.1F;
-  private static final float HIGHLIGHT_STROKE_WIDTH = 4F;
 
-  public static Blueprint highlight(Shape shape) {
+  public static Blueprint highlight(int size, float strokeWidth) {
     return Blueprint.builder()
-        .shape(shape)
-        .stroke(getStroke(HIGHLIGHT_STROKE_WIDTH))
+        .shape(new Circle(size))
+        .stroke(getStroke(strokeWidth))
         .strokeColor(HIGHLIGHT_COLOR)
-        .fillColor(TRANSLUCENT)
         .build();
   }
 
