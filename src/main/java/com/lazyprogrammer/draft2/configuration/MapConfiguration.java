@@ -21,7 +21,7 @@ public class MapConfiguration {
 
   @Bean
   MapConfig mapConfig() {
-    return new MapConfig(100, 80, 5);
+    return new MapConfig(128, 80, 5);
   }
 
   @Bean

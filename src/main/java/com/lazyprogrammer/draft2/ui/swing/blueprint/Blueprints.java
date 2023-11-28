@@ -16,7 +16,7 @@ public class Blueprints {
   public static final Color HILLS = new Color(68, 139, 81);
   public static final Color MOUNTAIN = new Color(152, 191, 158);
   public static final Color PEEKS = new Color(166, 204, 188);
-  public static final Color STROKE_COLOR = new Color(20, 21, 22);
+  public static final Color STROKE_COLOR = new Color(40, 42, 44);
   public static final Color HIGHLIGHT_COLOR = new Color(248, 248, 248);
   public static final Color TRANSLUCENT = new Color(0, 0, 0, 0);
   private static final float GRID_STROKE_WIDTH = 0.1F;
@@ -31,7 +31,7 @@ public class Blueprints {
         .build();
   }
 
-  private static Stroke getStroke(float width) {
+  public static Stroke getStroke(float width) {
     return new BasicStroke(width, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL);
   }
 

@@ -59,7 +59,7 @@ public class DataConfiguration {
     probabilities.put(TerrainType.WETLAND, 4 * allTile / 100);
     probabilities.put(TerrainType.PLAINS, 14 * allTile / 100);
     probabilities.put(TerrainType.HILLS, 9 * allTile / 100);
-    probabilities.put(TerrainType.MOUNTAINS,5  * allTile / 100);
+    probabilities.put(TerrainType.MOUNTAINS, 5 * allTile / 100);
     probabilities.put(TerrainType.MOUNTAIN_RANGE, 2 * allTile / 100);
     final var assigned = probabilities.values().stream().flatMapToInt(IntStream::of).sum();
     probabilities.put(

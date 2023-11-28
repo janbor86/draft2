@@ -3,16 +3,9 @@ package com.lazyprogrammer.draft2.ui.swing;
 import com.lazyprogrammer.draft2.data.Coordinate;
 import com.lazyprogrammer.draft2.data.terrain.TerrainRepository;
 import com.lazyprogrammer.draft2.ui.swing.blueprint.Blueprints;
-import com.lazyprogrammer.draft2.ui.swing.blueprint.Hex;
 import com.lazyprogrammer.draft2.ui.swing.graphics.Drawer;
 import com.lazyprogrammer.draft2.ui.swing.map.HexMapComponent;
 import com.lazyprogrammer.draft2.ui.swing.map.MapView;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
-import javax.swing.JComponent;
-import javax.swing.JLayer;
-import javax.swing.plaf.LayerUI;
 import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -21,7 +14,11 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-import java.awt.image.BufferedImage;
+import javax.swing.JComponent;
+import javax.swing.JLayer;
+import javax.swing.plaf.LayerUI;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -55,12 +52,15 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
   }
 
   private void paintHighlightShape(Graphics2D g2d) {
+    final var mapConfig = mapView.getMapConfig();
+    final var zoomRate = mapView.getZoomLevel() / 4;
+    final var diameter = mapConfig.hexHeight() - zoomRate;
     final var center = mapView.calculateCenter(coordinate);
-    g2d.drawImage(highlightImage(), center.x, center.y, null);
-  }
-
-  BufferedImage highlightImage() {
-    return drawer.drawHex(Blueprints.highlight(Hex.sizeOf(mapView.getZoomLevel())));
+    final var x = center.x + (mapConfig.hexWidth() - diameter) / 2;
+    final var y = center.y + (mapConfig.hexHeight() - diameter) / 2;
+    g2d.setColor(Blueprints.HIGHLIGHT_COLOR);
+    g2d.setStroke(Blueprints.getStroke((float) zoomRate / 6F));
+    g2d.drawOval(x, y, diameter, diameter);
   }
 
   private void paintInfoText(Graphics2D g2d, Rectangle infoArea, int lineNo, String info) {
