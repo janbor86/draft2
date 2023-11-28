@@ -14,7 +14,7 @@ public class Blueprints {
   public static final Color SWAMP = new Color(107, 80, 59);
   public static final Color GRASS = new Color(195, 184, 41);
   public static final Color HILLS = new Color(68, 139, 81);
-  public static final Color MOUNTAIN = new Color(152, 191, 158);
+  public static final Color MOUNTAIN = new Color(145, 182, 151);
   public static final Color PEEKS = new Color(166, 204, 188);
   public static final Color STROKE_COLOR = new Color(40, 42, 44);
   public static final Color HIGHLIGHT_COLOR = new Color(248, 248, 248);
