@@ -1,9 +1,5 @@
 package com.lazyprogrammer.draft2.ui.swing;
 
-import com.lazyprogrammer.draft2.ui.swing.map.MapComponent;
-
-import javax.swing.JComponent;
-import javax.swing.plaf.LayerUI;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -12,16 +8,19 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
+import javax.swing.JComponent;
+import org.springframework.stereotype.Component;
 
-public class ResourceLayerUI extends LayerUI<MapComponent> {
+@Component
+public class ResourceLayerUI extends JComponent {
 
   private BufferedImage backGroundImage;
 
   @Override
-  public void paint(Graphics g, JComponent mapComponent) {
-    super.paint(g, mapComponent);
+  public void paintComponent(Graphics g) {
+    super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
-    final var bounds = mapComponent.getBounds();
+    final var bounds = getBounds();
     drawBackGround(bounds, g2d);
   }
 

@@ -1,28 +1,28 @@
 package com.lazyprogrammer.draft2.ui.swing;
 
-
 import com.lazyprogrammer.draft2.configuration.GraphicsConfiguration;
 import com.lazyprogrammer.draft2.configuration.WindowMode;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-
+import java.awt.BorderLayout;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import javax.annotation.PostConstruct;
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class ApplicationFrame extends JFrame {
 
-  @NonNull
-  private final JPanel mainPanel;
-  @NonNull
-  private final GraphicsConfiguration graphicsConfiguration;
+  @NonNull private final JPanel mainPanel;
+  @NonNull private final GraphicsConfiguration graphicsConfiguration;
+  private final ResourceLayerUI resourceLayerUI;
+  private final EndTurnButton endTurnButton;
 
   @PostConstruct
   private void initialize() {
@@ -35,7 +35,15 @@ public class ApplicationFrame extends JFrame {
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setMonitor();
     setDecoration();
-    setContentPane(mainPanel);
+    setLayout(new BorderLayout());
+    mainPanel.setBounds(0, 0, getWidth(), getHeight());
+    resourceLayerUI.setBounds(0, 0, getWidth(), getHeight());
+    endTurnButton.setBounds(getWidth()/2 + 8, 4, 96, 32);
+    final var layeredPane = new JLayeredPane();
+    layeredPane.add(mainPanel, Integer.valueOf(1));
+    layeredPane.add(resourceLayerUI, JLayeredPane.PALETTE_LAYER);
+    layeredPane.add(endTurnButton, JLayeredPane.PALETTE_LAYER);
+    add(layeredPane);
     pack();
     setVisible(true);
   }
@@ -53,13 +61,8 @@ public class ApplicationFrame extends JFrame {
     final var monitorId = graphicsConfiguration.getMonitorId();
     if (monitorId < devices.length) {
       final var monitor = devices[monitorId];
-      setBounds(monitor.getDefaultConfiguration()
-                       .getBounds());
-      setPreferredSize(monitor.getDefaultConfiguration()
-                              .getBounds()
-                              .getSize());
+      setBounds(monitor.getDefaultConfiguration().getBounds());
+      setPreferredSize(monitor.getDefaultConfiguration().getBounds().getSize());
     }
   }
-
-
 }

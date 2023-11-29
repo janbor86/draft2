@@ -2,6 +2,7 @@ package com.lazyprogrammer.draft2.game;
 
 import com.lazyprogrammer.draft2.game.map.Coordinate;
 import com.lazyprogrammer.draft2.game.pop.Pop;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +16,11 @@ import java.util.Map;
 public class GameState {
 
   private final Map<Coordinate, List<Pop>> pops;
+  @Getter private int turnCounter;
 
   public GameState() {
     this.pops = new HashMap<>();
+    turnCounter = 1;
   }
 
   public void addPop(Coordinate at, Pop pop) {
@@ -32,5 +35,9 @@ public class GameState {
 
   public List<Pop> getPop(Coordinate coordinate) {
     return pops.getOrDefault(coordinate, List.of());
+  }
+
+  public int newTurn() {
+    return ++turnCounter;
   }
 }

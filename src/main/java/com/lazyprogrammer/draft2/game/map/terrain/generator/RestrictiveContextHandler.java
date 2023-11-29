@@ -65,7 +65,7 @@ public class RestrictiveContextHandler implements WaveFunctionContextHandler {
   @Override
   public Map<TerrainType, Integer> calculateModifiedProbabilities(
       List<TerrainType> context, Map<TerrainType, Integer> probabilities) {
-    log.info("context: {}", context);
+    log.debug("context: {}", context);
     final var allowedNeighbors = new ArrayList<TerrainType>();
     for (int i = 0; i < context.size(); i++) {
       List<TerrainType> possibilities = possibleNeighbors.get(context.get(i));
@@ -75,7 +75,7 @@ public class RestrictiveContextHandler implements WaveFunctionContextHandler {
       }
       allowedNeighbors.removeIf(type -> !possibilities.contains(type));
     }
-    log.info("allowed neighbors: {}", allowedNeighbors);
+    log.debug("allowed neighbors: {}", allowedNeighbors);
     final Map<TerrainType, Integer> probabilitiesBasedOnContext = new HashMap<>();
     allowedNeighbors.forEach(
         terrainType ->

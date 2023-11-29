@@ -1,9 +1,7 @@
-package com.lazyprogrammer.draft2.configuration;
+package com.lazyprogrammer.draft2.ui.swing;
 
 import com.lazyprogrammer.draft2.game.map.GameMap;
 import com.lazyprogrammer.draft2.game.map.terrain.TerrainRepository;
-import com.lazyprogrammer.draft2.ui.swing.InfoLayerUI;
-import com.lazyprogrammer.draft2.ui.swing.ResourceLayerUI;
 import com.lazyprogrammer.draft2.ui.swing.graphics.Drawer;
 import com.lazyprogrammer.draft2.ui.swing.graphics.Painter;
 import com.lazyprogrammer.draft2.ui.swing.map.MapComponent;
@@ -40,9 +38,4 @@ public class SwingConfiguration {
         mapComponent, new InfoLayerUI(mapComponent.getMapView(), drawer, terrainRepository));
   }
 
-  @Bean
-  JLayer<MapComponent> resourceLayer(
-      MapComponent mapComponent, Drawer drawer, TerrainRepository terrainRepository) {
-    return new JLayer<>(mapComponent, new ResourceLayerUI());
-  }
 }

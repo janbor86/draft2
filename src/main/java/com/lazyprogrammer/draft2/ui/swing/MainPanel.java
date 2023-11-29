@@ -5,7 +5,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.util.List;
 import javax.swing.JLayer;
 import javax.swing.JPanel;
 import lombok.extern.slf4j.Slf4j;
@@ -15,12 +14,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class MainPanel extends JPanel {
 
-  public MainPanel(MapComponent mapComponent, List<JLayer<MapComponent>> layers) {
+  public MainPanel(MapComponent mapComponent, JLayer<MapComponent> infoLayer) {
     setDoubleBuffered(true);
     setBackground(Color.BLACK);
     setLayout(new BorderLayout());
     addComponentListener(createComponentAdapter(mapComponent));
-    layers.forEach(l -> add(l, BorderLayout.CENTER));
+    add(infoLayer, BorderLayout.CENTER);
   }
 
   private static ComponentAdapter createComponentAdapter(MapComponent mapComponent) {

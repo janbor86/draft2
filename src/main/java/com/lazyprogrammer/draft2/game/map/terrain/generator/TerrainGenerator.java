@@ -9,7 +9,6 @@ import com.lazyprogrammer.draft2.game.map.terrain.TerrainType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,12 +43,12 @@ public class TerrainGenerator {
   public void generateTerrainAt(Coordinate coordinate) {
     if (hasBeenDefined(coordinate)) return;
     if (wfc.hasCollapsed()) {
-      log.info("Wave function already collapsed!");
+      log.debug("Wave function already collapsed!");
       return;
     }
     final var neighboringTerrain = repository.findNeighboringTerrain(coordinate, 1);
     final var outcome = wfc.collapse(neighboringTerrain);
-    log.info("{} has been generated at {}", outcome, coordinate);
+    log.debug("{} has been generated at {}", outcome, coordinate);
     repository.write(coordinate, outcome);
   }
 

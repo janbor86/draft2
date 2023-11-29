@@ -20,7 +20,7 @@ public class WaveFunctionCatalyst {
 
   @PostConstruct
   void logProbabilities() {
-    log.info("Probabilities {}", probabilities);
+    log.debug("Probabilities {}", probabilities);
   }
 
   public boolean hasCollapsed() {
@@ -38,7 +38,7 @@ public class WaveFunctionCatalyst {
   }
 
   private TerrainType collapse(Map<TerrainType, Integer> probabilities) {
-    log.info("collapse on {}", probabilities);
+    log.debug("collapse on {}", probabilities);
     var possibilityRange = getPossibilityRange(probabilities);
     if (possibilityRange == 0) {
       return collapse();
