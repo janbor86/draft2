@@ -1,10 +1,10 @@
-package com.lazyprogrammer.draft2.configuration;
+package com.lazyprogrammer.draft2.game.map;
 
-import com.lazyprogrammer.draft2.data.GameMap;
-import com.lazyprogrammer.draft2.data.map.MapConfig;
-import com.lazyprogrammer.draft2.data.map.MapGenerator;
-import com.lazyprogrammer.draft2.data.map.WfcMapGenerator;
-import com.lazyprogrammer.draft2.data.terrain.TerrainRepository;
+import com.lazyprogrammer.draft2.game.map.GameMap;
+import com.lazyprogrammer.draft2.game.map.MapConfig;
+import com.lazyprogrammer.draft2.game.map.MapGenerator;
+import com.lazyprogrammer.draft2.game.map.WfcMapGenerator;
+import com.lazyprogrammer.draft2.game.map.terrain.TerrainRepository;
 import com.lazyprogrammer.draft2.ui.swing.blueprint.BlueprintMap;
 import com.lazyprogrammer.draft2.ui.swing.graphics.Drawer;
 import com.lazyprogrammer.draft2.ui.swing.graphics.GridPainter;

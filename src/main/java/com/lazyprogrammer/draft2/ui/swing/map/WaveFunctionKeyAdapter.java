@@ -1,9 +1,9 @@
 package com.lazyprogrammer.draft2.ui.swing.map;
 
-import com.lazyprogrammer.draft2.data.Coordinate;
-import com.lazyprogrammer.draft2.data.terrain.TerrainRepository;
-import com.lazyprogrammer.draft2.data.terrain.TerrainType;
-import com.lazyprogrammer.draft2.data.terrain.generator.TerrainGenerator;
+import com.lazyprogrammer.draft2.game.map.Coordinate;
+import com.lazyprogrammer.draft2.game.map.terrain.TerrainRepository;
+import com.lazyprogrammer.draft2.game.map.terrain.TerrainType;
+import com.lazyprogrammer.draft2.game.map.terrain.generator.TerrainGenerator;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;

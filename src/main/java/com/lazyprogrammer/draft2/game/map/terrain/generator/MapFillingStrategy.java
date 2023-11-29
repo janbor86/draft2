@@ -1,6 +1,6 @@
-package com.lazyprogrammer.draft2.data.terrain.generator;
+package com.lazyprogrammer.draft2.game.map.terrain.generator;
 
-import com.lazyprogrammer.draft2.data.Coordinate;
+import com.lazyprogrammer.draft2.game.map.Coordinate;
 
 import java.util.List;
 

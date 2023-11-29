@@ -1,8 +1,8 @@
 package com.lazyprogrammer.draft2.game.pop;
 
-import com.lazyprogrammer.draft2.data.Coordinate;
-import com.lazyprogrammer.draft2.data.GameMap;
-import com.lazyprogrammer.draft2.data.TileAttribute;
+import com.lazyprogrammer.draft2.game.map.Coordinate;
+import com.lazyprogrammer.draft2.game.map.GameMap;
+import com.lazyprogrammer.draft2.game.map.TileAttribute;
 import java.util.*;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,8 @@
 package com.lazyprogrammer.draft2.configuration;
 
-import com.lazyprogrammer.draft2.data.GameMap;
-import com.lazyprogrammer.draft2.data.terrain.TerrainRepository;
-import com.lazyprogrammer.draft2.data.terrain.generator.TerrainGenerator;
+import com.lazyprogrammer.draft2.game.map.GameMap;
+import com.lazyprogrammer.draft2.game.map.terrain.TerrainRepository;
+import com.lazyprogrammer.draft2.game.map.terrain.generator.TerrainGenerator;
 import com.lazyprogrammer.draft2.ui.swing.InfoLayerUI;
 import com.lazyprogrammer.draft2.ui.swing.MainPanel;
 import com.lazyprogrammer.draft2.ui.swing.graphics.Drawer;

@@ -1,6 +1,6 @@
 package com.lazyprogrammer.draft2.game.pop.create;
 
-import com.lazyprogrammer.draft2.data.Coordinate;
+import com.lazyprogrammer.draft2.game.map.Coordinate;
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 

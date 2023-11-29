@@ -1,15 +1,15 @@
 package com.lazyprogrammer.draft2.configuration;
 
-import com.lazyprogrammer.draft2.data.GameMap;
-import com.lazyprogrammer.draft2.data.map.MapConfig;
-import com.lazyprogrammer.draft2.data.terrain.TerrainRepository;
-import com.lazyprogrammer.draft2.data.terrain.TerrainType;
-import com.lazyprogrammer.draft2.data.terrain.generator.MapFillingStrategy;
-import com.lazyprogrammer.draft2.data.terrain.generator.RandomNeighborFiller;
-import com.lazyprogrammer.draft2.data.terrain.generator.RestrictiveContextHandler;
-import com.lazyprogrammer.draft2.data.terrain.generator.TerrainGenerator;
-import com.lazyprogrammer.draft2.data.terrain.generator.WaveFunctionCatalyst;
-import com.lazyprogrammer.draft2.data.terrain.generator.WaveFunctionContextHandler;
+import com.lazyprogrammer.draft2.game.map.GameMap;
+import com.lazyprogrammer.draft2.game.map.MapConfig;
+import com.lazyprogrammer.draft2.game.map.terrain.TerrainRepository;
+import com.lazyprogrammer.draft2.game.map.terrain.TerrainType;
+import com.lazyprogrammer.draft2.game.map.terrain.generator.MapFillingStrategy;
+import com.lazyprogrammer.draft2.game.map.terrain.generator.RandomNeighborFiller;
+import com.lazyprogrammer.draft2.game.map.terrain.generator.RestrictiveContextHandler;
+import com.lazyprogrammer.draft2.game.map.terrain.generator.TerrainGenerator;
+import com.lazyprogrammer.draft2.game.map.terrain.generator.WaveFunctionCatalyst;
+import com.lazyprogrammer.draft2.game.map.terrain.generator.WaveFunctionContextHandler;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;

@@ -1,10 +1,11 @@
-package com.lazyprogrammer.draft2.data.terrain.generator;
+package com.lazyprogrammer.draft2.game.map.terrain.generator;
 
-import com.lazyprogrammer.draft2.data.terrain.TerrainType;
+import com.lazyprogrammer.draft2.game.map.terrain.TerrainType;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

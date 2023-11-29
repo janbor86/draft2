@@ -1,8 +1,8 @@
 package com.lazyprogrammer.draft2.ui.swing.graphics;
 
-import com.lazyprogrammer.draft2.data.Coordinate;
-import com.lazyprogrammer.draft2.data.terrain.TerrainRepository;
-import com.lazyprogrammer.draft2.data.terrain.TerrainType;
+import com.lazyprogrammer.draft2.game.map.Coordinate;
+import com.lazyprogrammer.draft2.game.map.terrain.TerrainRepository;
+import com.lazyprogrammer.draft2.game.map.terrain.TerrainType;
 import com.lazyprogrammer.draft2.ui.swing.blueprint.Blueprint;
 import com.lazyprogrammer.draft2.ui.swing.blueprint.BlueprintMap;
 import com.lazyprogrammer.draft2.ui.swing.blueprint.Blueprints;

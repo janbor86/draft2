@@ -1,4 +1,4 @@
-package com.lazyprogrammer.draft2.data.map;
+package com.lazyprogrammer.draft2.game.map;
 
 import com.lazyprogrammer.draft2.ui.swing.blueprint.MathConst;
 

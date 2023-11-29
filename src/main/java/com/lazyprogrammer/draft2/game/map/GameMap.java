@@ -1,6 +1,5 @@
-package com.lazyprogrammer.draft2.data;
+package com.lazyprogrammer.draft2.game.map;
 
-import com.lazyprogrammer.draft2.data.map.MapConfig;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;

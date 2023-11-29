@@ -1,14 +1,15 @@
-package com.lazyprogrammer.draft2.data.terrain.generator;
+package com.lazyprogrammer.draft2.game.map.terrain.generator;
 
 import com.lazyprogrammer.draft2.configuration.DataConfiguration;
-import com.lazyprogrammer.draft2.data.Coordinate;
-import com.lazyprogrammer.draft2.data.map.MapConfig;
-import com.lazyprogrammer.draft2.data.terrain.Terrain;
-import com.lazyprogrammer.draft2.data.terrain.TerrainRepository;
-import com.lazyprogrammer.draft2.data.terrain.TerrainType;
+import com.lazyprogrammer.draft2.game.map.Coordinate;
+import com.lazyprogrammer.draft2.game.map.MapConfig;
+import com.lazyprogrammer.draft2.game.map.terrain.Terrain;
+import com.lazyprogrammer.draft2.game.map.terrain.TerrainRepository;
+import com.lazyprogrammer.draft2.game.map.terrain.TerrainType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

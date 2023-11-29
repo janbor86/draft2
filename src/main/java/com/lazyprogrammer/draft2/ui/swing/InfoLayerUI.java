@@ -1,7 +1,7 @@
 package com.lazyprogrammer.draft2.ui.swing;
 
-import com.lazyprogrammer.draft2.data.Coordinate;
-import com.lazyprogrammer.draft2.data.terrain.TerrainRepository;
+import com.lazyprogrammer.draft2.game.map.Coordinate;
+import com.lazyprogrammer.draft2.game.map.terrain.TerrainRepository;
 import com.lazyprogrammer.draft2.ui.swing.blueprint.Blueprints;
 import com.lazyprogrammer.draft2.ui.swing.graphics.Drawer;
 import com.lazyprogrammer.draft2.ui.swing.map.HexMapComponent;

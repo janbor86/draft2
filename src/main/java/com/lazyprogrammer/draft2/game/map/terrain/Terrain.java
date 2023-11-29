@@ -1,4 +1,4 @@
-package com.lazyprogrammer.draft2.data.terrain;
+package com.lazyprogrammer.draft2.game.map.terrain;
 
 public record Terrain(String name, TerrainType type) {
 

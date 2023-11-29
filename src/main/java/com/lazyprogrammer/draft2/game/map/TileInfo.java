@@ -1,4 +1,4 @@
-package com.lazyprogrammer.draft2.data;
+package com.lazyprogrammer.draft2.game.map;
 
 import java.util.EnumMap;
 import java.util.Map;

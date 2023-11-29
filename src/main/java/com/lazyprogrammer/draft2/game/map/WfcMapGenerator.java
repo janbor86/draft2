@@ -1,9 +1,6 @@
-package com.lazyprogrammer.draft2.data.map;
+package com.lazyprogrammer.draft2.game.map;
 
-import com.lazyprogrammer.draft2.data.Coordinate;
-import com.lazyprogrammer.draft2.data.GameMap;
-import com.lazyprogrammer.draft2.data.TileAttribute;
-import com.lazyprogrammer.draft2.data.terrain.TerrainType;
+import com.lazyprogrammer.draft2.game.map.terrain.TerrainType;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashSet;
