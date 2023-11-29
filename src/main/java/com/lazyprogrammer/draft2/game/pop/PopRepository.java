@@ -1,4 +1,4 @@
-package com.lazyprogrammer.draft2.data.pop;
+package com.lazyprogrammer.draft2.game.pop;
 
 import com.lazyprogrammer.draft2.data.Coordinate;
 import com.lazyprogrammer.draft2.data.GameMap;

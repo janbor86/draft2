@@ -1,4 +1,4 @@
-package com.lazyprogrammer.draft2.action.pop;
+package com.lazyprogrammer.draft2.game.pop.create;
 
 import com.lazyprogrammer.draft2.data.Coordinate;
 import lombok.Getter;

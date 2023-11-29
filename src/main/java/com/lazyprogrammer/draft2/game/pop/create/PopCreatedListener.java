@@ -1,6 +1,6 @@
-package com.lazyprogrammer.draft2.action.pop;
+package com.lazyprogrammer.draft2.game.pop.create;
 
-import com.lazyprogrammer.draft2.data.pop.PopRepository;
+import com.lazyprogrammer.draft2.game.pop.PopRepository;
 import javax.swing.JComponent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,6 @@
 package com.lazyprogrammer.draft2.ui.swing.map;
 
-import com.lazyprogrammer.draft2.action.pop.PopCreatedEvent;
+import com.lazyprogrammer.draft2.game.pop.create.PopCreatedEvent;
 import com.lazyprogrammer.draft2.data.Coordinate;
 import com.lazyprogrammer.draft2.ui.swing.graphics.Painter;
 import com.lazyprogrammer.draft2.ui.swing.graphics.PaintingConfiguration;
