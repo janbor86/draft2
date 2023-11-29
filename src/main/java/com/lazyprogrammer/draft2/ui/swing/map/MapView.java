@@ -48,7 +48,7 @@ public class MapView {
     var x = Math.min(6 * viewBoundary.width / 7, Math.max(minimumX, getLocation().x));
     var y = Math.min(4 * viewBoundary.height / 5, Math.max(minimumY, getLocation().y));
     viewBoundary.setLocation(new Point(x, y));
-    log.info("map view location: {}", getLocation());
+    log.debug("map view location: {}", getLocation());
   }
 
   public Point getLocation() {

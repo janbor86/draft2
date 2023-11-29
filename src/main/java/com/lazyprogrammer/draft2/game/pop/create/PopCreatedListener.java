@@ -15,8 +15,9 @@ public class PopCreatedListener {
 
   @EventListener
   public void createPop(PopCreatedEvent popCreatedEvent) {
+    final var pop = popCreatedEvent.getPop();
     final var coordinate = popCreatedEvent.getCoordinate();
-    log.info("pop created at: {}", coordinate);
-    repository.add(coordinate);
+    log.info("{} created at: {}", pop, coordinate);
+    repository.add(coordinate, pop);
   }
 }

@@ -1,19 +1,19 @@
-package com.lazyprogrammer.draft2.ui.swing.graphics;
+package com.lazyprogrammer.draft2.game.pop.create;
 
 import com.lazyprogrammer.draft2.game.map.Coordinate;
 import com.lazyprogrammer.draft2.game.map.MapConfig;
 import com.lazyprogrammer.draft2.game.pop.PopRepository;
+import com.lazyprogrammer.draft2.ui.swing.graphics.Painter;
 import com.lazyprogrammer.draft2.ui.swing.map.MapView;
-import lombok.RequiredArgsConstructor;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.Set;
+import lombok.RequiredArgsConstructor;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 @Order(20)
 @Component
@@ -28,7 +28,7 @@ public class PopPainter implements Painter {
   public void paint(Graphics2D g2d, MapView view, Set<Coordinate> coordinates) {
     coordinates.forEach(
         coordinate -> {
-          var popNo = repository.countPop(coordinate);
+          var popNo = repository.lookup(coordinate).size();
           if (popNo > 0) drawPop(g2d, view.calculateCenter(coordinate), view.getZoomLevel());
         });
   }

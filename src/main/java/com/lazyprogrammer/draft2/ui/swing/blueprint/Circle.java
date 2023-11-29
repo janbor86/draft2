@@ -69,4 +69,19 @@ public class Circle implements Shape {
   public PathIterator getPathIterator(AffineTransform at, double flatness) {
     return circle.getPathIterator(at, flatness);
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (!(o instanceof Circle circle1))
+      return false;
+
+    return circle.equals(circle1.circle);
+  }
+
+  @Override
+  public int hashCode() {
+    return circle.hashCode();
+  }
 }

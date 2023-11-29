@@ -1,6 +1,7 @@
 package com.lazyprogrammer.draft2.game.pop.create;
 
 import com.lazyprogrammer.draft2.game.Player;
+import com.lazyprogrammer.draft2.game.pop.Pops;
 import com.lazyprogrammer.draft2.ui.swing.map.MapView;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -19,7 +20,7 @@ public class CreatePopTrigger extends MouseAdapter {
   @Override
   public void mouseClicked(MouseEvent e) {
     final var selectedCoordinate = mapView.findAt(e.getPoint());
-    player.createPopAt(selectedCoordinate);
+    player.createPopAt(selectedCoordinate, Pops.hunterGatherer());
     e.getComponent().repaint();
   }
 }
