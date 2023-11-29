@@ -1,33 +1,34 @@
 package com.lazyprogrammer.draft2.ui.swing;
 
-import com.lazyprogrammer.draft2.ui.swing.map.HexMapComponent;
-import lombok.extern.slf4j.Slf4j;
-
-import javax.swing.JLayer;
-import javax.swing.JPanel;
+import com.lazyprogrammer.draft2.ui.swing.map.MapComponent;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.util.List;
+import javax.swing.JLayer;
+import javax.swing.JPanel;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 @Slf4j
+@Component
 public class MainPanel extends JPanel {
 
-  public MainPanel(HexMapComponent mapComponent, JLayer<HexMapComponent> infoLayer) {
+  public MainPanel(MapComponent mapComponent, List<JLayer<MapComponent>> layers) {
     setDoubleBuffered(true);
     setBackground(Color.BLACK);
     setLayout(new BorderLayout());
     addComponentListener(createComponentAdapter(mapComponent));
-    add(infoLayer, BorderLayout.CENTER);
+    layers.forEach(l -> add(l, BorderLayout.CENTER));
   }
 
-  private static ComponentAdapter createComponentAdapter(HexMapComponent mapComponent) {
+  private static ComponentAdapter createComponentAdapter(MapComponent mapComponent) {
     return new ComponentAdapter() {
       @Override
       public void componentResized(ComponentEvent e) {
         mapComponent.refreshView();
       }
-
     };
   }
 }

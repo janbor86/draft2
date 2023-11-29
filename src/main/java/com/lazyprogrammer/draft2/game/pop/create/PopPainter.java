@@ -12,9 +12,11 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Order(20)
 @Component
 @RequiredArgsConstructor
@@ -36,7 +38,7 @@ public class PopPainter implements Painter {
   private void drawPop(Graphics2D graphics2D, Point onScreenLocation, int zoomLevel) {
     final var scaledInstance = popImage.getScaledInstance(zoomLevel, zoomLevel, Image.SCALE_SMOOTH);
     onScreenLocation.translate((mapConfig.hexWidth()) / 4, (mapConfig.hexHeight()) / 4);
-    //    drawFrame(graphics2D, onScreenLocation, scaledInstance);
+    if (log.isDebugEnabled()) drawFrame(graphics2D, onScreenLocation, scaledInstance);
     graphics2D.drawImage(scaledInstance, onScreenLocation.x, onScreenLocation.y, null);
   }
 

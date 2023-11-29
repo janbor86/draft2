@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @Getter
 @RequiredArgsConstructor
-public class HexMapComponent extends JComponent {
+public class MapComponent extends JComponent {
 
   @ToString.Exclude private final Set<Coordinate> validCoordinates;
   private final MapView mapView;

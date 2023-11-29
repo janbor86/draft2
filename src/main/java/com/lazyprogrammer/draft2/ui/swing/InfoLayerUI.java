@@ -4,7 +4,7 @@ import com.lazyprogrammer.draft2.game.map.Coordinate;
 import com.lazyprogrammer.draft2.game.map.terrain.TerrainRepository;
 import com.lazyprogrammer.draft2.ui.swing.blueprint.Blueprints;
 import com.lazyprogrammer.draft2.ui.swing.graphics.Drawer;
-import com.lazyprogrammer.draft2.ui.swing.map.HexMapComponent;
+import com.lazyprogrammer.draft2.ui.swing.map.MapComponent;
 import com.lazyprogrammer.draft2.ui.swing.map.MapView;
 import java.awt.AWTEvent;
 import java.awt.Color;
@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
-public class InfoLayerUI extends LayerUI<HexMapComponent> {
+public class InfoLayerUI extends LayerUI<MapComponent> {
 
   private static final int TEXT_OFFSET = 24;
   private static final Color INFO_AREA_COLOR = new Color(0, 0, 0, 64);
@@ -91,7 +91,7 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
   }
 
   @Override
-  protected void processMouseMotionEvent(MouseEvent e, JLayer<? extends HexMapComponent> l) {
+  protected void processMouseMotionEvent(MouseEvent e, JLayer<? extends MapComponent> l) {
     log.trace("mouseMotion: {}", e);
     coordinate = mapView.findAt(e.getPoint());
     tileInfo = terrainRepository.findTerrain(coordinate).name();
@@ -99,14 +99,14 @@ public class InfoLayerUI extends LayerUI<HexMapComponent> {
   }
 
   @Override
-  protected void processKeyEvent(KeyEvent e, JLayer<? extends HexMapComponent> l) {
+  protected void processKeyEvent(KeyEvent e, JLayer<? extends MapComponent> l) {
     coordinate = mapView.getFocused();
     if (coordinate != null) tileInfo = terrainRepository.findTerrain(coordinate).name();
     l.repaint();
   }
 
   @Override
-  protected void processMouseWheelEvent(MouseWheelEvent e, JLayer<? extends HexMapComponent> l) {
+  protected void processMouseWheelEvent(MouseWheelEvent e, JLayer<? extends MapComponent> l) {
     l.repaint();
   }
 }
