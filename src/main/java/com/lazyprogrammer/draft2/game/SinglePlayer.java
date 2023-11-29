@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class HumanPlayer implements Player {
+public class SinglePlayer implements Player {
 
   private final ApplicationEventPublisher eventPublisher;
   private final List<GameResource> resources;

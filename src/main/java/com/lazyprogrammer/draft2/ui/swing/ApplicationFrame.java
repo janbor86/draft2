@@ -2,7 +2,6 @@ package com.lazyprogrammer.draft2.ui.swing;
 
 import com.lazyprogrammer.draft2.configuration.GraphicsConfiguration;
 import com.lazyprogrammer.draft2.configuration.WindowMode;
-import java.awt.BorderLayout;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import javax.annotation.PostConstruct;
@@ -35,7 +34,6 @@ public class ApplicationFrame extends JFrame {
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setMonitor();
     setDecoration();
-    setLayout(new BorderLayout());
     mainPanel.setBounds(0, 0, getWidth(), getHeight());
     resourceLayerUI.setBounds(0, 0, getWidth(), getHeight());
     endTurnButton.setBounds(getWidth()/2 + 8, 4, 96, 32);

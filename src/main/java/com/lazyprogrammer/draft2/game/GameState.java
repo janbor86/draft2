@@ -2,42 +2,15 @@ package com.lazyprogrammer.draft2.game;
 
 import com.lazyprogrammer.draft2.game.map.Coordinate;
 import com.lazyprogrammer.draft2.game.pop.Pop;
-import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-@Slf4j
-@Component
-public class GameState {
+public interface GameState {
+  void addPop(Coordinate at, Pop pop);
 
-  private final Map<Coordinate, List<Pop>> pops;
-  @Getter private int turnCounter;
+  List<Pop> getPop(Coordinate coordinate);
 
-  public GameState() {
-    this.pops = new HashMap<>();
-    turnCounter = 1;
-  }
+  int newTurn();
 
-  public void addPop(Coordinate at, Pop pop) {
-    pops.compute(
-        at,
-        (coordinate, popList) -> {
-          if (popList == null) popList = new ArrayList<>();
-          popList.add(pop);
-          return popList;
-        });
-  }
-
-  public List<Pop> getPop(Coordinate coordinate) {
-    return pops.getOrDefault(coordinate, List.of());
-  }
-
-  public int newTurn() {
-    return ++turnCounter;
-  }
+  int getTurnCounter();
 }
