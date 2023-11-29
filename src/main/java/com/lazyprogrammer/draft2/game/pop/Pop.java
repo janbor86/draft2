@@ -2,15 +2,15 @@ package com.lazyprogrammer.draft2.game.pop;
 
 import com.lazyprogrammer.draft2.game.resource.GameResource;
 import com.lazyprogrammer.draft2.game.resource.NewBorn;
+import java.util.List;
 
-import java.util.Map;
-
-public record Pop(
-    String name,
-    Map<Class<? extends GameResource>, Integer> producerMap,
-    Map<Class<? extends GameResource>, Integer> consumerMap) {
+public record Pop(String name, List<GameResource> produces, List<GameResource> consumes) {
 
   public int newborns() {
-    return producerMap.getOrDefault(NewBorn.class, 0);
+    return produces.stream()
+        .filter(r -> r instanceof NewBorn)
+        .map(GameResource::getAmount)
+        .findFirst()
+        .orElse(0);
   }
 }
