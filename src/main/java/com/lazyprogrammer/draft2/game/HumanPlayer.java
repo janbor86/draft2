@@ -1,4 +1,4 @@
-package com.lazyprogrammer.draft2.game.human;
+package com.lazyprogrammer.draft2.game;
 
 import com.lazyprogrammer.draft2.game.Player;
 import com.lazyprogrammer.draft2.game.map.Coordinate;
