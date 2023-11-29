@@ -1,13 +1,13 @@
 package com.lazyprogrammer.draft2.game.map;
 
 import com.lazyprogrammer.draft2.game.map.terrain.TerrainType;
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 @Slf4j
+@Component
 public class WfcMapGenerator implements MapGenerator {
 
   @Override
@@ -16,24 +16,7 @@ public class WfcMapGenerator implements MapGenerator {
     final var columnNo = mapConfig.columnNo();
     final var rowNo = mapConfig.rowNo();
     var usedCoordinates = initOceansAtTheEdge(columnNo, gameMap, rowNo);
-    var availableCoordinates = new HashSet<>(gameMap.getCoordinates());
-    availableCoordinates.removeAll(usedCoordinates);
-    var coordinate = pickRandomCoord(availableCoordinates);
-    log.info("{}", gameMap.read(coordinate, TileAttribute.TERRAIN));
     return gameMap;
-  }
-
-  private static Coordinate pickRandomCoord(HashSet<Coordinate> availableCoordinates) {
-    int randomIndex = ThreadLocalRandom.current()
-                                       .nextInt(availableCoordinates.size());
-    int i = 0;
-    for (Coordinate coordinate : availableCoordinates) {
-      if (i == randomIndex) {
-        return coordinate;
-      }
-      i++;
-    }
-    throw new AssertionError("We shouldn't be here!");
   }
 
   private static Set<Coordinate> initOceansAtTheEdge(int columnNo, GameMap gameMap, int rowNo) {

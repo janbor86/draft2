@@ -4,6 +4,9 @@ import com.lazyprogrammer.draft2.game.map.Coordinate;
 import com.lazyprogrammer.draft2.ui.swing.blueprint.Blueprint;
 import com.lazyprogrammer.draft2.ui.swing.blueprint.Blueprints;
 import com.lazyprogrammer.draft2.ui.swing.map.MapView;
+import lombok.RequiredArgsConstructor;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -11,21 +14,20 @@ import java.awt.Image;
 import java.awt.Point;
 import java.util.Set;
 
+@Order(10)
+@Component
+@RequiredArgsConstructor
 public class GridPainter implements Painter {
   public static final String GRID_KEY = "grid_key";
   public static final String ACTIVE_STATUS = "active";
   public static final String INACTIVE_STATUS = "inactive";
   public static final String DEFAULT_STATUS = ACTIVE_STATUS;
   private final Drawer drawer;
+  private final PaintingConfiguration configuration;
   private Blueprint grid;
 
-  public GridPainter(final Drawer drawer) {
-    this.drawer = drawer;
-  }
-
   @Override
-  public void paint(
-      PaintingConfiguration configuration, MapView view, Set<Coordinate> coordinates) {
+  public void paint(Graphics2D g2d, MapView view, Set<Coordinate> coordinates) {
     if (!ACTIVE_STATUS.equals(configuration.getProperties().getProperty(GRID_KEY, DEFAULT_STATUS)))
       return;
     final var zoomLevel = view.getZoomLevel();
@@ -38,9 +40,7 @@ public class GridPainter implements Painter {
           final var onScreenLocation = view.calculateCenter(coordinate);
           final var gridImage = drawer.draw(grid);
           //          drawFrame(configuration.getGraphics2D(), onScreenLocation, gridImage);
-          configuration
-              .getGraphics2D()
-              .drawImage(gridImage, onScreenLocation.x, onScreenLocation.y, null);
+          g2d.drawImage(gridImage, onScreenLocation.x, onScreenLocation.y, null);
         });
   }
 

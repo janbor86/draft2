@@ -5,6 +5,7 @@ import com.lazyprogrammer.draft2.game.map.MapConfig;
 import com.lazyprogrammer.draft2.game.pop.PopRepository;
 import com.lazyprogrammer.draft2.ui.swing.map.MapView;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.awt.Color;
@@ -14,6 +15,7 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.Set;
 
+@Order(20)
 @Component
 @RequiredArgsConstructor
 public class PopPainter implements Painter {
@@ -23,23 +25,18 @@ public class PopPainter implements Painter {
   private final MapConfig mapConfig;
 
   @Override
-  public void paint(
-      PaintingConfiguration configuration, MapView view, Set<Coordinate> coordinates) {
+  public void paint(Graphics2D g2d, MapView view, Set<Coordinate> coordinates) {
     coordinates.forEach(
         coordinate -> {
           var popNo = repository.countPop(coordinate);
-          if (popNo > 0)
-            drawPop(
-                configuration.getGraphics2D(),
-                view.calculateCenter(coordinate),
-                view.getZoomLevel());
+          if (popNo > 0) drawPop(g2d, view.calculateCenter(coordinate), view.getZoomLevel());
         });
   }
 
   private void drawPop(Graphics2D graphics2D, Point onScreenLocation, int zoomLevel) {
     final var scaledInstance = popImage.getScaledInstance(zoomLevel, zoomLevel, Image.SCALE_SMOOTH);
     onScreenLocation.translate((mapConfig.hexWidth()) / 4, (mapConfig.hexHeight()) / 4);
-//    drawFrame(graphics2D, onScreenLocation, scaledInstance);
+    //    drawFrame(graphics2D, onScreenLocation, scaledInstance);
     graphics2D.drawImage(scaledInstance, onScreenLocation.x, onScreenLocation.y, null);
   }
 

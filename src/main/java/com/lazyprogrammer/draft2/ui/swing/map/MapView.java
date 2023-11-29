@@ -5,12 +5,14 @@ import com.lazyprogrammer.draft2.game.map.MapConfig;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.awt.Point;
 import java.awt.Rectangle;
 
 @Slf4j
 @ToString
+@Component
 public class MapView {
 
   private final Rectangle viewBoundary;

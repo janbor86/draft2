@@ -6,11 +6,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 @Slf4j
+@Component
 @RequiredArgsConstructor
 public class MapMouseAdapter extends MouseAdapter {
-  private final HexMapComponent gameMap;
+  private final MapView mapView;
   private Point mousePosition;
 
   @Override
@@ -23,20 +25,15 @@ public class MapMouseAdapter extends MouseAdapter {
     int dx = e.getX() - mousePosition.x;
     int dy = e.getY() - mousePosition.y;
 
-    gameMap.pan(dx, dy);
+    mapView.translateView(dx, dy);
 
     mousePosition = e.getPoint();
+    e.getComponent().repaint();
   }
 
   @Override
   public void mouseWheelMoved(MouseWheelEvent e) {
-    gameMap.zoomAt(e.getWheelRotation());
-  }
-
-  @Override
-  public void mouseClicked(MouseEvent e) {
-    final var clickedOn = gameMap.getMapView()
-                                 .findAt(e.getPoint());
-    gameMap.createPopAt(clickedOn);
+    mapView.changeZoomLevel(-e.getWheelRotation());
+    e.getComponent().repaint();
   }
 }
