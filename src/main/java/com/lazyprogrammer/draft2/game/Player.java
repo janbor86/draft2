@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface Player {
 
+  long getId();
+
   void createPopAt(Coordinate coordinate, Pop pop);
 
   List<GameResource> getResources();

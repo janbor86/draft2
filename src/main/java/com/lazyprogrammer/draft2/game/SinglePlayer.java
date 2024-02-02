@@ -20,6 +20,11 @@ public class SinglePlayer implements Player {
   private final List<GameResource> resources;
 
   @Override
+  public long getId() {
+    return 1;
+  }
+
+  @Override
   public void createPopAt(Coordinate coordinate, Pop pop) {
     eventPublisher.publishEvent(new PopCreatedEvent(this, coordinate, pop));
   }

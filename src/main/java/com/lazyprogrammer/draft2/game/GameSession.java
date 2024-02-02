@@ -1,3 +1,5 @@
 package com.lazyprogrammer.draft2.game;
 
-public interface GameSession {}
+public interface GameSession {
+  void start();
+}

@@ -20,7 +20,7 @@ public class CreatePopTrigger extends MouseAdapter {
   @Override
   public void mouseClicked(MouseEvent e) {
     final var selectedCoordinate = mapView.findAt(e.getPoint());
-    player.createPopAt(selectedCoordinate, Pops.hunterGatherer());
+    player.createPopAt(selectedCoordinate, Pops.forager());
     e.getComponent().repaint();
   }
 }

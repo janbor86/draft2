@@ -1,4 +1,4 @@
-package com.lazyprogrammer.draft2.ui.swing;
+package com.lazyprogrammer.draft2.ui.swing.map;
 
 import java.awt.Color;
 import java.awt.FontMetrics;

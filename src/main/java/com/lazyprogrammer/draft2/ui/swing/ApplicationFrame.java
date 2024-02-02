@@ -2,6 +2,8 @@ package com.lazyprogrammer.draft2.ui.swing;
 
 import com.lazyprogrammer.draft2.configuration.GraphicsConfiguration;
 import com.lazyprogrammer.draft2.configuration.WindowMode;
+import com.lazyprogrammer.draft2.ui.swing.map.EndTurnButton;
+import com.lazyprogrammer.draft2.ui.swing.menu.MenuComponent;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import javax.annotation.PostConstruct;
@@ -22,6 +24,7 @@ public class ApplicationFrame extends JFrame {
   @NonNull private final GraphicsConfiguration graphicsConfiguration;
   private final ResourceLayerUI resourceLayerUI;
   private final EndTurnButton endTurnButton;
+  private final MenuComponent menuComponent;
 
   @PostConstruct
   private void initialize() {
@@ -34,16 +37,21 @@ public class ApplicationFrame extends JFrame {
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setMonitor();
     setDecoration();
+    final var mapPane = createMapPane();
+    add(menuComponent);
+    pack();
+    setVisible(true);
+  }
+
+  private JLayeredPane createMapPane() {
     mainPanel.setBounds(0, 0, getWidth(), getHeight());
     resourceLayerUI.setBounds(0, 0, getWidth(), getHeight());
-    endTurnButton.setBounds(getWidth()/2 + 8, 4, 96, 32);
+    endTurnButton.setBounds(getWidth() / 2 + 8, 4, 96, 32);
     final var layeredPane = new JLayeredPane();
     layeredPane.add(mainPanel, Integer.valueOf(1));
     layeredPane.add(resourceLayerUI, JLayeredPane.PALETTE_LAYER);
     layeredPane.add(endTurnButton, JLayeredPane.PALETTE_LAYER);
-    add(layeredPane);
-    pack();
-    setVisible(true);
+    return layeredPane;
   }
 
   private void setDecoration() {

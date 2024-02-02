@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Pops {
 
-  public static Pop hunterGatherer() {
-    return new Pop("Hunter-Gatherer", List.of(GameResources.newborns(1)), List.of());
+  public static Pop forager() {
+    return new Pop("Forager", List.of(GameResources.newborns(1)), List.of());
   }
 }

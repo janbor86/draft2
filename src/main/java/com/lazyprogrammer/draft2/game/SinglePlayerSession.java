@@ -7,4 +7,12 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SinglePlayerSession implements GameSession {}
+public class SinglePlayerSession implements GameSession {
+
+  private final Player player;
+
+  @Override
+  public void start() {
+
+  }
+}
